@@ -1,0 +1,66 @@
+{
+  "gen_strat_seed_a": {
+    "parent": "root",
+    "depth": 0,
+    "sharpe": 0,
+    "rating": "\ud83d\udfe1 Unknown"
+  },
+  "gen_strat_seed_b": {
+    "parent": "root",
+    "depth": 0,
+    "sharpe": 0,
+    "rating": "\ud83d\udfe1 Unknown"
+  },
+  "gen_strat_r1": {
+    "parent": "gen_strat_seed_a",
+    "depth": 1,
+    "sharpe": -0.45,
+    "rating": "\ud83d\udd34 Poor"
+  },
+  "gen_strat_r2": {
+    "parent": "gen_strat_seed_b",
+    "depth": 1,
+    "sharpe": -0.83,
+    "rating": "\ud83d\udd34 Poor"
+  },
+  "gen_strat_r3": {
+    "parent": "gen_strat_seed_b",
+    "depth": 1,
+    "sharpe": -0.29,
+    "rating": "\ud83d\udfe0 Weak"
+  },
+  "gen_strat_r4": {
+    "parent": "gen_strat_seed_a",
+    "depth": 1,
+    "sharpe": -0.88,
+    "rating": "\ud83d\udd34 Poor"
+  },
+  "gen_strat_r5": {
+    "parent": "gen_strat_seed_a",
+    "depth": 1,
+    "sharpe": -0.97,
+    "rating": "\ud83d\udd34 Poor"
+  },
+  "agent_hybrid_5479": {
+    "parent": "gen_strat_r2+gen_strat_r3",
+    "depth": 2,
+    "sharpe": 0,
+    "rating": "\ud83e\uddec Hybrid"
+  },
+  "short_volatility_proposal_5586": {
+    "parent": "gen_strat_r2",
+    "depth": 2,
+    "sharpe": 0,
+    "rating": "\ud83d\udd2c Proposed",
+    "proposed_by": "short_volatility",
+    "created": "2025-07-07T09:58:45.987451"
+  },
+  "long_term_trend_proposal_1987": {
+    "parent": "gen_strat_r3",
+    "depth": 2,
+    "sharpe": 0,
+    "rating": "\ud83d\udd2c Proposed",
+    "proposed_by": "long_term_trend",
+    "created": "2025-07-07T09:58:45.987483"
+  }
+}

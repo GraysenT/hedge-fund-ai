@@ -1,0 +1,1 @@
+* * * * * root python3 /app/scripts/run_stat_arb_cycle.py >> /var/log/cron.log 2>&1

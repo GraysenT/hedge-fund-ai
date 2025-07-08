@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  hedge-fund-core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hedge-fund-core
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: python3 runloop.py
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  # Optional: live dashboard via Streamlit (uncomment to enable)
+  # dashboard:
+  #   build:
+  #     context: .
+  #   container_name: hedge-fund-dashboard
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - .:/app
+  #   working_dir: /app
+  #   ports:
+  #     - "8501:8501"
+  #   command: streamlit run dashboards/control_center.py

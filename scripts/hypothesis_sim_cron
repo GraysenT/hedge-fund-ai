@@ -1,0 +1,1 @@
+*/60 * * * * root python3 /app/simulation/hypothesis_simulator.py >> /var/log/cron.log 2>&1

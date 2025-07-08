@@ -1,0 +1,5 @@
+{
+  "author": "graysentorczon",
+  "description": "Momentum model on breakout patterns",
+  "code": "def run(): print('BUY AAPL based on momentum spike')"
+}

@@ -1,0 +1,16 @@
+{
+  "short_volatility": {
+    "pnl": 21700.0,
+    "days": 1,
+    "strategies": [
+      "gen_strat_r2"
+    ]
+  },
+  "long_term_trend": {
+    "pnl": -23850.0,
+    "days": 1,
+    "strategies": [
+      "gen_strat_r3"
+    ]
+  }
+}

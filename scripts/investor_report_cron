@@ -1,0 +1,1 @@
+0 6 * * 1 root python3 /app/reporting/report_generator.py && python3 /app/cloud/report_uploader.py >> /var/log/cron.log 2>&1

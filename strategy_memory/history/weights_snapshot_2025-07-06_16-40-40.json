@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-07-06_16-40-40",
+  "base_weights": {
+    "AAPL": 0.25,
+    "MSFT": 0.25,
+    "BTC": 0.25,
+    "ETH": 0.25
+  },
+  "reinforce_weights": {
+    "AAPL": 1.2,
+    "MSFT": 1.0,
+    "BTC": 0.5,
+    "ETH": 1.0
+  },
+  "final_weights": {
+    "AAPL": 0.3,
+    "MSFT": 0.25,
+    "BTC": 0.125,
+    "ETH": 0.25
+  }
+}

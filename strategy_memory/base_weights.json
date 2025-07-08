@@ -1,0 +1,14 @@
+{
+  "AAPL": 0.25,
+  "MSFT": 0.25,
+  "BTC": 0.25,
+  "ETH": 0.25,
+  "gen_strat_1_MSFT": 0.0,
+  "gen_strat_1_BTC": 0.0,
+  "gen_strat_1_AAPL": 0.0,
+  "gen_strat_1_ETH": 0.0,
+  "gen_strat_2_MSFT": 0.0,
+  "gen_strat_2_BTC": 0.0,
+  "gen_strat_2_AAPL": 0.0,
+  "gen_strat_2_ETH": 0.0
+}

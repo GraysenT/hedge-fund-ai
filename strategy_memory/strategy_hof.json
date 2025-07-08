@@ -1,0 +1,9 @@
+{
+  "gen_strat_test": {
+    "parent": "gen_strat_1_ETH",
+    "depth": 1,
+    "rating": "🟢 Strong",
+    "sharpe": 1.45,
+    "bias_source": "depth_1"
+  }
+}

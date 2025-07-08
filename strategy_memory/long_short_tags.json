@@ -1,0 +1,10 @@
+{
+  "gen_strat_1_MSFT": "long",
+  "gen_strat_1_BTC": "long",
+  "gen_strat_1_AAPL": "long",
+  "gen_strat_1_ETH": "long",
+  "gen_strat_2_MSFT": "long",
+  "gen_strat_2_BTC": "long",
+  "gen_strat_2_AAPL": "long",
+  "gen_strat_2_ETH": "long"
+}

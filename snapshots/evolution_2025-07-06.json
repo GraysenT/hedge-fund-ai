@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-07-06T15:33:05.642937",
+  "weights": {
+    "US_Trend": 0.3,
+    "UK_Value": 0.2,
+    "Crypto_RSI": 0.5
+  },
+  "muted": [],
+  "alerts": [],
+  "alpha_health": {}
+}

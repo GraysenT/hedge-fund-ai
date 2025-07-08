@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: sans-serif; margin: 40px; }
+    h1 { color: #2a2a2a; }
+    table, th, td { border: 1px solid gray; border-collapse: collapse; padding: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Investor Performance Report</h1>
+  <p><strong>Generated:</strong> {{ timestamp }}</p>
+  <img src="{{ chart }}" width="100%" />
+
+  <h2>Strategy Stats</h2>
+  <table>
+    <tr>
+      <th>Strategy</th><th>Total PnL</th><th>Avg</th><th>Std Dev</th><th>Trades</th><th>Sharpe</th>
+    </tr>
+    {% for row in stats %}
+    <tr>
+      <td>{{ row.strategy }}</td>
+      <td>{{ "%.2f"|format(row.sum) }}</td>
+      <td>{{ "%.4f"|format(row.mean) }}</td>
+      <td>{{ "%.4f"|format(row.std) }}</td>
+      <td>{{ row.count }}</td>
+      <td>{{ "%.2f"|format(row.sharpe) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

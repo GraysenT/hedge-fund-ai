@@ -1,0 +1,6 @@
+memory/
+logs/
+reports/
+.env
+__pycache__/
+*.pyc

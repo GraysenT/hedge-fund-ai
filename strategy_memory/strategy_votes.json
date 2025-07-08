@@ -1,0 +1,6 @@
+{
+  "gen_strat_r2": { "up": 3, "down": 0 },
+  "gen_strat_r3": { "up": 2, "down": 0 },
+  "gen_strat_r5": { "up": 1, "down": 2 },
+  "gen_strat_seed_a": { "up": 0, "down": 3 }
+}

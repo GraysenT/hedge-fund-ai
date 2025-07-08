@@ -1,0 +1,2 @@
+date,strategy,pair,zscore,signal,confidence,t1,t2,spread,weight,weighted_confidence,final_score
+2025-07-08,stat_arb,GOOG-AMZN,-2.01,long t1 / short t2,0.5036612527962244,GOOG,AMZN,-45.910003662109375,1.0,0.5036612527962244,0.5036612527962244

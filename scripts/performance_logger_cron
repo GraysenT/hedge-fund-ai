@@ -1,0 +1,1 @@
+55 23 * * * root python3 /app/performance/performance_logger.py >> /var/log/cron.log 2>&1

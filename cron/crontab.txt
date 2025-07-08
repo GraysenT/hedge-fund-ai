@@ -1,0 +1,2 @@
+*/10 * * * * cd /app && python3 evolve.py >> logs/evolve.log 2>&1
+0 2 * * * cd /app && python3 backup/cloud_sync.py >> logs/backup.log 2>&1

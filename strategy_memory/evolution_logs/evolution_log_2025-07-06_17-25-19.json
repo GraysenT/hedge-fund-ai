@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-07-06_17-25-19",
+  "muted_strategies": [
+    "gen_strat_1_MSFT",
+    "gen_strat_1_BTC",
+    "gen_strat_1_AAPL",
+    "gen_strat_1_ETH",
+    "gen_strat_2_MSFT",
+    "gen_strat_2_BTC",
+    "gen_strat_2_AAPL",
+    "gen_strat_2_ETH"
+  ],
+  "promoted_strategies": [],
+  "summary": [
+    {
+      "Strategy": "gen_strat_1_MSFT",
+      "Snapshots": 1,
+      "Avg Weight": 0.344,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_1_BTC",
+      "Snapshots": 1,
+      "Avg Weight": 0.1607,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_1_AAPL",
+      "Snapshots": 1,
+      "Avg Weight": 0.2999,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_1_ETH",
+      "Snapshots": 1,
+      "Avg Weight": 0.2164,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_2_MSFT",
+      "Snapshots": 1,
+      "Avg Weight": 0.2037,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_2_BTC",
+      "Snapshots": 1,
+      "Avg Weight": 0.3065,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_2_AAPL",
+      "Snapshots": 1,
+      "Avg Weight": 0.3742,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    },
+    {
+      "Strategy": "gen_strat_2_ETH",
+      "Snapshots": 1,
+      "Avg Weight": 0.4531,
+      "Avg Sharpe": 0,
+      "Status": "\ud83d\udd3d Decaying"
+    }
+  ]
+}

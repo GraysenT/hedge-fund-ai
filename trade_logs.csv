@@ -1,0 +1,10 @@
+timestamp,strategy,ticker,side,qty,price,dollars,tag,status
+2025-07-06T14:16:40.758260,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:32:58.705179,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:33:43.976113,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:36:06.134116,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:38:23.197918,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:40:39.190468,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:45:30.217827,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:49:15.741633,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error
+2025-07-06T14:53:12.634608,US_Trend,SPY,buy,22,440.0,10000.0,US_Trend-buy,error

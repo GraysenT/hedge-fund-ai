@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-07-06_17-12-59",
+  "base_weights": {
+    "AAPL": 0.25,
+    "MSFT": 0.25,
+    "BTC": 0.25,
+    "ETH": 0.25,
+    "gen_strat_1_MSFT": 0.344,
+    "gen_strat_1_BTC": 0.1607,
+    "gen_strat_1_AAPL": 0.2999,
+    "gen_strat_1_ETH": 0.2164,
+    "gen_strat_2_MSFT": 0.2037,
+    "gen_strat_2_BTC": 0.3065,
+    "gen_strat_2_AAPL": 0.3742,
+    "gen_strat_2_ETH": 0.4531
+  },
+  "reinforce_weights": {
+    "AAPL": 1.2,
+    "MSFT": 1.0,
+    "BTC": 0.5,
+    "ETH": 1.0
+  },
+  "final_weights": {
+    "AAPL": 0.3,
+    "MSFT": 0.25,
+    "BTC": 0.125,
+    "ETH": 0.25,
+    "gen_strat_1_MSFT": 0.344,
+    "gen_strat_1_BTC": 0.1607,
+    "gen_strat_1_AAPL": 0.2999,
+    "gen_strat_1_ETH": 0.2164,
+    "gen_strat_2_MSFT": 0.2037,
+    "gen_strat_2_BTC": 0.3065,
+    "gen_strat_2_AAPL": 0.3742,
+    "gen_strat_2_ETH": 0.4531
+  }
+}

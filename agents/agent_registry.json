@@ -1,0 +1,13 @@
+{
+  "momentum_alpha": [],
+  "macro_rotation": [
+    "gen_strat_seed_a",
+    "gen_strat_seed_b"
+  ],
+  "short_volatility": [
+    "gen_strat_r1",
+    "gen_strat_r2",
+    "gen_strat_r4",
+    "gen_strat_r5"
+  ]
+}

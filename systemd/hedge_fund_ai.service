@@ -1,0 +1,12 @@
+[Unit]
+Description=Hedge Fund AI System Loop
+After=network.target
+
+[Service]
+WorkingDirectory=/app
+ExecStart=/usr/bin/python3 /app/runloop.py
+Restart=always
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target

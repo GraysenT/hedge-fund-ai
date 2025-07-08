@@ -1,0 +1,1 @@
+0 4 * * * root python3 /app/cloud/sync_all_to_s3.py >> /var/log/cron.log 2>&1

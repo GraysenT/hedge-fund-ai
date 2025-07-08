@@ -1,0 +1,98 @@
+{
+  "gen_strat_1": {
+    "MSFT": 0.344,
+    "BTC": 0.1607,
+    "AAPL": 0.2999,
+    "ETH": 0.2164
+  },
+  "gen_strat_2": {
+    "MSFT": 0.2037,
+    "BTC": 0.3065,
+    "AAPL": 0.3742,
+    "ETH": 0.4531
+  },
+  "gen_strat_3": {
+    "MSFT": 0.1165,
+    "BTC": 0.3625,
+    "AAPL": 0.1968,
+    "ETH": 0.5004
+  },
+  "gen_strat_4": {
+    "MSFT": 0.3561,
+    "BTC": 0.4349,
+    "AAPL": 0.186,
+    "ETH": 0.2915
+  },
+  "gen_strat_5": {
+    "MSFT": 0.1187,
+    "BTC": 0.2609,
+    "AAPL": 0.4541,
+    "ETH": 0.3252
+  },
+  "gen_strat_6": {
+    "MSFT": 0.1568,
+    "BTC": 0.1458,
+    "AAPL": 0.288,
+    "ETH": 0.3059
+  },
+  "gen_strat_7": {
+    "MSFT": 0.1955,
+    "BTC": 0.1915,
+    "AAPL": 0.1459,
+    "ETH": 0.3655
+  },
+  "gen_strat_8": {
+    "MSFT": 0.2827,
+    "BTC": 0.4113,
+    "AAPL": 0.3808,
+    "ETH": 0.2896
+  },
+  "gen_strat_9": {
+    "MSFT": 0.353,
+    "BTC": 0.348,
+    "AAPL": 0.4462,
+    "ETH": 0.4639
+  },
+  "gen_strat_10": {
+    "MSFT": 0.4889,
+    "BTC": 0.1297,
+    "AAPL": 0.3341,
+    "ETH": 0.1467
+  },
+  "gen_strat_r1": {
+    "BTC": 0.2634,
+    "ETH": 0.25
+  },
+  "gen_strat_r2": {
+    "BTC": 0.25,
+    "ETH": 0.25
+  },
+  "gen_strat_r3": {
+    "BTC": 0.25,
+    "ETH": 0.25
+  },
+  "gen_strat_r4": {
+    "AAPL": 0.2676,
+    "MSFT": 0.2646
+  },
+  "gen_strat_r5": {
+    "BTC": 0.25,
+    "ETH": 0.25
+  },
+  "gen_strat_seed": {
+    "AAPL": 0.25,
+    "MSFT": 0.25
+  },
+  "gen_strat_seed_alt": {
+    "BTC": 0.25,
+    "ETH": 0.25
+  },
+  "gen_strat_seed_a": {
+    "AAPL": 0.25,
+    "MSFT": 0.25
+  },
+  "gen_strat_seed_b": {
+    "BTC": 0.25,
+    "ETH": 0.25
+  }
+}
