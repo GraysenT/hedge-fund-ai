@@ -1,0 +1,6 @@
+{
+  "analytics/alpha_tracker.py": "Tracks alpha decay and drift across all strategies.",
+  "dashboards/self_build_dashboard.py": "Shows live status of self-generated modules and build logs.",
+  "risk_control/capital_floor_guard.py": "Prevents allocation below capital floor limits.",
+  "execution/momentum_chaser.py": "Executes fast breakout trades using short-term momentum."
+}
