@@ -1,34 +1,36 @@
-import pandas as pd
-from datetime import datetime
-from models.stat_arb_selector import (
-    get_price_data,
-    find_cointegrated_pairs,
-    calculate_spread_zscore
-)
+import random
 
-def generate_stat_arb_signals():
-    tickers = ["MSFT", "AAPL", "GOOG", "META", "AMZN"]  # Expand as needed
-    prices = get_price_data(tickers)
-    pairs = find_cointegrated_pairs(prices)
+def generate_stat_arb_signal(ticker, price):
+    """
+    Simulated statistical arbitrage signal generator.
+    Uses a mock spread and threshold to create a signal.
+    """
 
-    signals = []
+    # Example logic: simulate mean reversion if price deviates from 100
+    reference_mean = 150 if ticker == "AAPL" else 220
+    spread = price - reference_mean
+    threshold = 5
 
-    for t1, t2, pval in pairs:
-        z, spread = calculate_spread_zscore(prices[t1], prices[t2])
-        latest_z = z[-1]  # ✅ FIXED: z is a NumPy array
+    # Decision logic
+    if spread < -threshold:
+        action = "BUY"
+        confidence = 0.9
+    elif spread > threshold:
+        action = "SELL"
+        confidence = 0.9
+    else:
+        action = "HOLD"
+        confidence = 0.6
 
-        if abs(latest_z) > 2:
-            signal = {
-                "date": datetime.utcnow().strftime("%Y-%m-%d"),
-                "strategy": "stat_arb",
-                "pair": f"{t1}-{t2}",
-                "zscore": round(latest_z, 2),
-                "signal": "long t1 / short t2" if latest_z < 0 else "short t1 / long t2",
-                "confidence": min(abs(latest_z) / 4, 1.0),
-                "t1": t1,
-                "t2": t2,
-                "spread": float(spread[-1])  # ✅ Convert to float for logging
-            }
-            signals.append(signal)
+    return {
+        "timestamp": None,  # filled by runloop
+        "asset": ticker,
+        "strategy": "stat_arb",
+        "price": price,
+        "spread": round(spread, 2),
+        "action": action,
+        "confidence": confidence
+    }
 
-    return pd.DataFrame(signals)
+def generate_signal():
+    return 'skip'

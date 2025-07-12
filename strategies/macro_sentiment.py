@@ -8,3 +8,6 @@ def generate_macro_sentiment_signal(ticker, price):
         "action": action,
         "confidence": 0.91
     }
+
+def generate_signal():
+    return "buy"

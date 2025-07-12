@@ -33,3 +33,6 @@ def generate_volatility_signals(tickers=["SPY", "QQQ"], lookback=20):
 
     return pd.DataFrame(signals)
     
+
+def generate_signal():
+    return 'skip'

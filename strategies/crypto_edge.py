@@ -8,3 +8,6 @@ def generate_crypto_signal(ticker, price):
         "action": action,
         "confidence": 0.87
     }
+
+def generate_signal():
+    return 'skip'

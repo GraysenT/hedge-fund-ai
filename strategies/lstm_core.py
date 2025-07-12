@@ -40,3 +40,6 @@ class LSTMStrategy:
             "action": action,
             "strategy": "LSTM"
         }
+
+def generate_signal():
+    return 'skip'
