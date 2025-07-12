@@ -1,27 +1,37 @@
-import json
 import os
-from datetime import datetime
-import random
+import json
+from utils.paths import STRATEGY_STATUS_FILE
 
-SIM_MEM_PATH = "memory/simulation_memory.json"
-os.makedirs("memory", exist_ok=True)
+def get_underperformers(min_sharpe=-10.0, max_sharpe=0.2, max_results=10):
+    """
+    Returns a list of underperforming strategy names based on Sharpe ratio.
+    Pulls from STRATEGY_STATUS_FILE if it exists; otherwise falls back to default list.
+    """
+    underperformers = []
 
-def update_simulation_memory():
-    # Simulated memory of past strategy performance
-    fake_memory = []
+    if os.path.exists(STRATEGY_STATUS_FILE):
+        try:
+            with open(STRATEGY_STATUS_FILE, "r") as f:
+                data = json.load(f)
 
-    for strategy in ["stat_arb", "momentum", "macro_sentiment", "crypto_edge"]:
-        entry = {
-            "strategy": strategy,
-            "reward": round(random.uniform(-0.5, 1.5), 3),
-            "timestamp": datetime.utcnow().isoformat()
-        }
-        fake_memory.append(entry)
+            for strategy, stats in data.items():
+                sharpe = stats.get("sharpe", 0.0)
+                if min_sharpe <= sharpe <= max_sharpe:
+                    underperformers.append(strategy)
+                if len(underperformers) >= max_results:
+                    break
 
-    with open(SIM_MEM_PATH, "w") as f:
-        json.dump(fake_memory, f, indent=2)
+        except Exception as e:
+            print(f"⚠️ simulation_memory: Error loading strategy stats — {e}")
 
-    print(f"🧠 Simulation memory updated for {len(fake_memory)} strategies.")
+    # Fallback list if nothing found
+    if not underperformers:
+        underperformers = [
+            "mean_reversion_noise",
+            "macro_blindspot",
+            "volume_gap_hunter",
+            "fake_breakout_lagger",
+            "slow_react_scalper"
+        ][:max_results]
 
-if __name__ == "__main__":
-    update_simulation_memory()
+    return underperformers

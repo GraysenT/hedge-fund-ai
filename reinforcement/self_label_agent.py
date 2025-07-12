@@ -1,38 +1,26 @@
-import json
-import os
-from datetime import datetime
+import pandas as pd
+from utils.paths import SIGNAL_LOG, TRADE_LOG_FILE, STRATEGY_STATUS_FILE
 
-SIGNAL_LOG = "logs/signal_events.json"
-LABEL_LOG = "memory/self_labels.json"
-
-def score_strategies_from_labels():
-    print("🧠 [Placeholder] Scoring strategies from labels...")
-    return []
-
-def update_self_labels():
-    if not os.path.exists(SIGNAL_LOG):
-        print("⚠️ No signal log to label.")
+def self_label_and_reinforce():
+    try:
+        signals = pd.read_json(SIGNAL_LOG)
+        trades = pd.read_csv(TRADE_LOG_FILE)
+    except Exception as e:
+        print(f"[SelfLabelAgent] Failed to load logs: {e}")
         return
 
-    with open(SIGNAL_LOG, "r") as f:
-        signals = json.load(f)
+    if signals.empty or trades.empty:
+        return
 
-    labeled = []
-    for s in signals[-10:]:
-        label = "success" if s.get("confidence", 0) > 0.7 else "fail"
-        labeled.append({
-            "strategy": s["strategy"],
-            "action": s["action"],
-            "confidence": s.get("confidence", 0),
-            "label": label,
-            "timestamp": datetime.utcnow().isoformat()
-        })
+    trades["PnL"] = trades["ExitPrice"] - trades["EntryPrice"]
+    trades["Result"] = trades["PnL"].apply(lambda x: 1 if x > 0 else -1)
 
-    os.makedirs("memory", exist_ok=True)
-    with open(LABEL_LOG, "w") as f:
-        json.dump(labeled, f, indent=2)
+    scores = trades.groupby("SignalID")["Result"].mean()
 
-    print(f"🔖 Self-labeled {len(labeled)} signals.")
+    strategy_rewards = trades.groupby("Strategy")["PnL"].mean()
+    status = pd.read_json(STRATEGY_STATUS_FILE)
+    status = status.set_index("Strategy")
+    status["RewardScore"] = strategy_rewards
 
-if __name__ == "__main__":
-    update_self_labels()
+    status.to_json(STRATEGY_STATUS_FILE, indent=2)
+    print("[SelfLabelAgent] Updated strategy reward scores.")

@@ -1,28 +1,56 @@
-import random
-import uuid
+import json
 import os
+import random
+from utils.paths import STRATEGY_STATUS_FILE, MODULE_QUEUE_FILE
 
-STRATEGY_DIR = "strategies/"
-GEN_DIR = "strategies/generated/"
-os.makedirs(GEN_DIR, exist_ok=True)
+def creative_suffix():
+    return random.choice([
+        "prime", "edge", "fusion", "echo", "reborn", "vision", "plus", "vortex"
+    ])
 
-def clone_mutate_strategy(filename):
-    with open(os.path.join(STRATEGY_DIR, filename), "r") as f:
-        lines = f.readlines()
+def mutate_strategy_name(base_name):
+    suffix = creative_suffix()
+    base = base_name.split("/")[-1].replace(".py", "")
+    return f"{base}_{suffix}"
 
-    mutated = []
-    for line in lines:
-        if "threshold" in line or ">" in line or "<" in line:
-            line = line.replace("0.5", str(round(random.uniform(0.3, 0.7), 2)))
-        mutated.append(line)
+def generate_mutated_strategies(top_n=3):
+    if not os.path.exists(STRATEGY_STATUS_FILE):
+        return []
 
-    new_name = f"gen_strat_{uuid.uuid4().hex[:6]}.py"
-    with open(os.path.join(GEN_DIR, new_name), "w") as f:
-        f.writelines(mutated)
+    with open(STRATEGY_STATUS_FILE, "r") as f:
+        scores = json.load(f)
 
-    print(f"🧬 Generated {new_name} from {filename}")
+    sorted_strats = sorted(scores.items(), key=lambda x: x[1].get("sharpe", 0), reverse=True)
+    top_strats = [name for name, _ in sorted_strats[:top_n]]
+
+    ideas = []
+    for strat in top_strats:
+        mutated = mutate_strategy_name(strat)
+        path = f"strategies/{mutated}.py"
+        desc = f"A self-evolved variant of {strat} with enhanced logic."
+        ideas.append((path, desc))
+
+    return ideas
+
+def append_mutations_to_queue():
+    if not os.path.exists(MODULE_QUEUE_FILE):
+        queue = {}
+    else:
+        with open(MODULE_QUEUE_FILE, "r") as f:
+            queue = json.load(f)
+
+    ideas = generate_mutated_strategies()
+    added = 0
+
+    for path, desc in ideas:
+        if path not in queue:
+            queue[path] = desc
+            added += 1
+
+    with open(MODULE_QUEUE_FILE, "w") as f:
+        json.dump(queue, f, indent=2)
+
+    print(f"[MUTATION] Added {added} mutated strategies to queue.")
 
 if __name__ == "__main__":
-    base_strats = [f for f in os.listdir(STRATEGY_DIR) if f.endswith(".py")]
-    for f in base_strats[:2]:
-        clone_mutate_strategy(f)
+    append_mutations_to_queue()

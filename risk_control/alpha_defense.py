@@ -1,37 +1,21 @@
-import json
-import os
-from datetime import datetime
+import pandas as pd
+from utils.paths import STRATEGY_STATUS_FILE
 
-ALPHA_LOG = "memory/alpha_attribution.json"
-DEFENSE_LOG = "logs/alpha_defense.log"
+def apply_alpha_defense(min_health_threshold=0.1):
+    try:
+        df = pd.read_json(STRATEGY_STATUS_FILE)
+    except Exception as e:
+        print(f"[AlphaDefense] Failed to load status: {e}")
+        return []
 
-def check_alpha_integrity(pnl_threshold=-200, max_drawdown=0.3):
-    if not os.path.exists(ALPHA_LOG):
-        print("❌ No alpha attribution file.")
-        return
+    muted = []
+    for i, row in df.iterrows():
+        if row.get("AlphaHealth", 1.0) < min_health_threshold:
+            df.at[i, "Muted"] = True
+            muted.append(row["Strategy"])
+        else:
+            df.at[i, "Muted"] = False
 
-    with open(ALPHA_LOG, "r") as f:
-        strategies = json.load(f)
-
-    flagged = []
-    for strat in strategies:
-        pnl = strat.get("pnl_total", 0)
-        if pnl < pnl_threshold:
-            flagged.append({
-                "strategy": strat["strategy"],
-                "pnl": pnl,
-                "flagged_at": datetime.utcnow().isoformat(),
-                "reason": "Low PnL"
-            })
-
-    if flagged:
-        os.makedirs("logs", exist_ok=True)
-        with open(DEFENSE_LOG, "a") as f:
-            for entry in flagged:
-                f.write(json.dumps(entry) + "\n")
-        print(f"🛡️ Alpha defense triggered for {len(flagged)} strategies.")
-    else:
-        print("🧠 Alpha integrity check passed.")
-
-if __name__ == "__main__":
-    check_alpha_integrity()
+    df.to_json(STRATEGY_STATUS_FILE, indent=2)
+    print(f"[AlphaDefense] Muted {len(muted)} decaying strategies.")
+    return muted
