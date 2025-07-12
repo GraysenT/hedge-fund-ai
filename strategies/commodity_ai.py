@@ -9,3 +9,7 @@ def run():
         signal = random.choice(["Buy", "Sell", "Hold"])
         confidence = round(random.uniform(0.6, 0.95), 2)
         print(f" → {asset}: {signal} (Confidence: {confidence})")
+
+
+def generate_signal():
+    return 'skip'
