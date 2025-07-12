@@ -1,0 +1,5 @@
+Strategy,Meta Weight
+Fusion,0.25
+LSTM,0.25
+Macro,0.25
+Sentiment,0.25

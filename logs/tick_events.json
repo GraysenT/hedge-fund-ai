@@ -1,0 +1,62 @@
+[
+  {
+    "timestamp": "2025-07-08T20:11:29.015772",
+    "asset": "AAPL",
+    "price": 178.99,
+    "volume": 265
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.121215",
+    "asset": "AAPL",
+    "price": 150.15,
+    "volume": 700
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.226303",
+    "asset": "AAPL",
+    "price": 158.74,
+    "volume": 540
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.330340",
+    "asset": "AAPL",
+    "price": 160.88,
+    "volume": 577
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.435448",
+    "asset": "AAPL",
+    "price": 186.75,
+    "volume": 267
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.540549",
+    "asset": "AAPL",
+    "price": 188.08,
+    "volume": 349
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.645662",
+    "asset": "AAPL",
+    "price": 153.19,
+    "volume": 984
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.748352",
+    "asset": "AAPL",
+    "price": 195.2,
+    "volume": 126
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.853396",
+    "asset": "AAPL",
+    "price": 111.75,
+    "volume": 724
+  },
+  {
+    "timestamp": "2025-07-08T20:11:29.957306",
+    "asset": "AAPL",
+    "price": 118.88,
+    "volume": 194
+  }
+]

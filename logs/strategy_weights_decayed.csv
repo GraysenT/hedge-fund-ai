@@ -1,0 +1,9 @@
+Strategy,Final Weight
+Fusion,0.125
+LSTM,0.125
+Macro,0.125
+Sentiment,0.125
+Fusion,0.125
+LSTM,0.125
+Macro,0.125
+Sentiment,0.125

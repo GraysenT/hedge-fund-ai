@@ -1,0 +1,8 @@
+{"timestamp": "2025-07-08T18:31:01.118085", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91, "hedge": "Equity Index Long"}}
+{"timestamp": "2025-07-08T18:41:05.764214", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91, "hedge": "Gold Futures"}}
+{"timestamp": "2025-07-08T18:43:16.136722", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91, "hedge": "Gold Futures"}}
+{"timestamp": "2025-07-08T18:51:10.716694", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91}}
+{"timestamp": "2025-07-08T19:01:15.114348", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91, "hedge": "Bond ETF Long"}}
+{"timestamp": "2025-07-08T19:31:22.350570", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91}}
+{"timestamp": "2025-07-08T20:03:26.562633", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91}}
+{"timestamp": "2025-07-08T20:11:30.066641", "type": "signal_fired", "source": "system", "details": {"strategy": "macro_sentiment", "action": "BUY", "asset": "SPY", "confidence": 0.91}}

@@ -1,0 +1,14 @@
+Date,Asset,Signal,Return (%),Correct,Strategy
+2025-07-05,Oil,Hold,1.17,✅,LSTM
+2025-07-05,Oil,Hold,1.17,✅,Sentiment
+2025-07-05,Oil,Hold,1.17,✅,Fusion
+2025-07-05,Oil,Hold,1.17,✅,Fusion
+2025-07-05,Oil,Hold,1.17,✅,Fusion
+2025-07-05,Oil,Hold,1.17,✅,LSTM
+2025-07-05,Oil,Hold,1.17,✅,Fusion
+2025-07-05,Oil,Hold,1.17,✅,Fusion
+2025-07-05,Oil,Hold,1.17,✅,LSTM
+2025-07-05,Oil,Hold,1.17,✅,Sentiment
+2025-07-05,Oil,Hold,1.17,✅,Sentiment
+2025-07-05,Oil,Hold,1.17,✅,Fusion
+2025-07-05,Oil,Hold,1.17,✅,Macro

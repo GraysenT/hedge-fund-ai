@@ -1,0 +1,35 @@
+[
+  {
+    "timestamp": "2025-07-09T17:44:30.811449",
+    "strategy": "crypto_edge",
+    "asset": "ETH/USD",
+    "action": "BUY",
+    "size": 100,
+    "price": 2609.391,
+    "pnl": -4.41,
+    "method": "market",
+    "venue": "primary"
+  },
+  {
+    "timestamp": "2025-07-09T17:45:05.832477",
+    "strategy": "crypto_edge",
+    "asset": "ETH/USD",
+    "action": "BUY",
+    "size": 100,
+    "price": 2609.391,
+    "pnl": -12.54,
+    "method": "market",
+    "venue": "primary"
+  },
+  {
+    "timestamp": "2025-07-09T19:17:42.699536",
+    "strategy": "crypto_edge",
+    "asset": "ETH/USD",
+    "action": "BUY",
+    "size": 100,
+    "price": 2609.391,
+    "pnl": -9.89,
+    "method": "market",
+    "venue": "primary"
+  }
+]

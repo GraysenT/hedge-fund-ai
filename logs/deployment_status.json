@@ -1,0 +1,269 @@
+{
+  "dark_pool_pressure_booster": {
+    "deployed": true
+  },
+  "macro_sentiment_spike_booster": {
+    "deployed": true
+  },
+  "volatility_engine": {
+    "deployed": true
+  },
+  "stat_arb_engine": {
+    "deployed": true
+  },
+  "crypto_cross_momentum_booster": {
+    "deployed": true
+  },
+  "overnight_alpha_stack_booster": {
+    "deployed": true
+  },
+  "slow_react_scalper": {
+    "deployed": true
+  },
+  "commodity_ai": {
+    "deployed": true
+  },
+  "news_reactor": {
+    "deployed": true
+  },
+  "latency_pinch_scalper_booster": {
+    "deployed": true
+  },
+  "earnings_gap_fade_booster": {
+    "deployed": true
+  },
+  "option_flow_flip_booster": {
+    "deployed": true
+  },
+  "crypto_edge": {
+    "deployed": true
+  },
+  "fed_day_bias_booster": {
+    "deployed": true
+  },
+  "lstm_core": {
+    "deployed": true
+  },
+  "macro_sentiment": {
+    "deployed": true
+  },
+  "volatility_reversal_booster": {
+    "deployed": true
+  },
+  "momentum_breakout_booster": {
+    "deployed": true
+  },
+  "volatility_reversal_booster 2": {
+    "deployed": true
+  },
+  "latency_pinch_scalper_booster 2": {
+    "deployed": true
+  },
+  "crypto_cross_momentum_booster 2": {
+    "deployed": true
+  },
+  "dark_pool_pressure_booster 2": {
+    "deployed": true
+  },
+  "fed_day_bias_booster 2": {
+    "deployed": true
+  },
+  "macro_sentiment_spike_booster 2": {
+    "deployed": true
+  },
+  "momentum_breakout_booster 2": {
+    "deployed": true
+  },
+  "overnight_alpha_stack_booster 2": {
+    "deployed": true
+  },
+  "option_flow_flip_booster 2": {
+    "deployed": true
+  },
+  "earnings_gap_fade_booster 2": {
+    "deployed": true
+  },
+  "news_reactor 2": {
+    "deployed": true
+  },
+  "momentum_scalper": {
+    "deployed": true
+  },
+  "mean_reversion_tracker": {
+    "deployed": true
+  },
+  "macro_sentiment_plus": {
+    "deployed": true
+  },
+  "mean_reversion_signalizer": {
+    "deployed": true
+  },
+  "macro_sniper": {
+    "deployed": true
+  },
+  "crypto_arbitrage": {
+    "deployed": true
+  },
+  "macro_sentiment_mutated_v2": {
+    "deployed": true
+  },
+  "volatility_tracker": {
+    "deployed": true
+  },
+  "mean_reversion_rotator": {
+    "deployed": true
+  },
+  "crypto_hedger": {
+    "deployed": true
+  },
+  "volume_tracker": {
+    "deployed": true
+  },
+  "volatility_hedger": {
+    "deployed": true
+  },
+  "overnight_signalizer": {
+    "deployed": true
+  },
+  "dark_pool_arbitrage": {
+    "deployed": true
+  },
+  "crypto_tracker": {
+    "deployed": true
+  },
+  "overnight_arbitrage": {
+    "deployed": true
+  },
+  "fed_day_scalper": {
+    "deployed": true
+  },
+  "macro_sentiment_echo": {
+    "deployed": true
+  },
+  "dark_pool_predictor": {
+    "deployed": true
+  },
+  "macro_booster": {
+    "deployed": true
+  },
+  "volume_arbitrage": {
+    "deployed": true
+  },
+  "volatility_rotator": {
+    "deployed": true
+  },
+  "crypto_rotator": {
+    "deployed": true
+  },
+  "volume_booster": {
+    "deployed": true
+  },
+  "macro_sentiment_reborn": {
+    "deployed": true
+  },
+  "volatility_predictor": {
+    "deployed": true
+  },
+  "fed_day_sniper": {
+    "deployed": true
+  },
+  "fed_day_signalizer": {
+    "deployed": true
+  },
+  "macro_sentiment_fusion": {
+    "deployed": true
+  },
+  "mean_reversion_arbitrage": {
+    "deployed": true
+  },
+  "overnight_scalper": {
+    "deployed": true
+  },
+  "fed_day_arbitrage": {
+    "deployed": true
+  },
+  "macro_sentiment_edge": {
+    "deployed": true
+  },
+  "momentum_booster": {
+    "deployed": true
+  },
+  "momentum_predictor": {
+    "deployed": true
+  },
+  "crypto_predictor": {
+    "deployed": true
+  },
+  "macro_sentiment_prime": {
+    "deployed": true
+  },
+  "mean_reversion_scalper": {
+    "deployed": true
+  },
+  "volatility_scalper": {
+    "deployed": true
+  },
+  "fed_day_booster": {
+    "deployed": true
+  },
+  "dark_pool_hedger": {
+    "deployed": true
+  },
+  "fed_day_rotator": {
+    "deployed": true
+  },
+  "overnight_sniper": {
+    "deployed": true
+  },
+  "volume_scalper": {
+    "deployed": true
+  },
+  "fed_day_predictor": {
+    "deployed": true
+  },
+  "overnight_rotator": {
+    "deployed": true
+  },
+  "momentum_sniper": {
+    "deployed": true
+  },
+  "macro_signalizer": {
+    "deployed": true
+  },
+  "overnight_hedger": {
+    "deployed": true
+  },
+  "macro_sentiment_vortex": {
+    "deployed": true
+  },
+  "overnight_booster": {
+    "deployed": true
+  },
+  "macro_predictor": {
+    "deployed": true
+  },
+  "momentum_based": {
+    "deployed": true
+  },
+  "strategy_base": {
+    "deployed": true
+  },
+  "strategy_combiner": {
+    "deployed": true
+  },
+  "breakout": {
+    "deployed": true
+  },
+  "macd": {
+    "deployed": true
+  },
+  "bollinger_bands": {
+    "deployed": true
+  },
+  "trend_following": {
+    "deployed": true
+  },
+  "mean_reversion": {
+    "deployed": true
+  }
+}
