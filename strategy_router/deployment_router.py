@@ -1,23 +1,29 @@
-import json
 import os
+import json
+from utils.paths import STRATEGY_STATUS_FILE, DEPLOYMENT_STATUS_FILE
 
-DEPLOY_DB = "memory/deployability_scores.json"
-THRESHOLD = 0.65
+def run_deployment_filter(approved_strategies, min_sharpe=0.2):
+    deployed = []
 
-def apply_deployability_filters():
-    if not os.path.exists(DEPLOY_DB):
-        print("⚠️ No deployability data.")
-        return
+    # Load scores
+    if os.path.exists(STRATEGY_STATUS_FILE):
+        with open(STRATEGY_STATUS_FILE, "r") as f:
+            scores = json.load(f)
+    else:
+        scores = {}
 
-    with open(DEPLOY_DB, "r") as f:
-        scores = json.load(f)
+    for strat in approved_strategies:
+        strat_score = scores.get(strat, {}).get("sharpe", 0)
+        if strat_score >= min_sharpe:
+            deployed.append(strat)
 
-    approved = []
-    for s in scores:
-        if "deployability" in s and s["deployability"] >= THRESHOLD:
-            approved.append(s)
+    # Save to deployment status
+    status = {}
+    for strat in deployed:
+        status[strat] = {"deployed": True}
 
-    with open("memory/deployment_approved.json", "w") as f:
-        json.dump(approved, f, indent=2)
+    with open(DEPLOYMENT_STATUS_FILE, "w") as f:
+        json.dump(status, f, indent=2)
 
-    print(f"✅ Approved {len(approved)} strategies for deployment.")
+    print(f"[DEPLOYMENT] Final deployed strategies: {deployed}")
+    return deployed

@@ -1,34 +1,20 @@
-import json
+"""
+Strategy Voting Engine: Allows strategies to self-score or vote based on performance.
+This version returns all active strategies that haven't been muted.
+"""
+
 import os
+from alerts.strategy_triggers import load_muted_strategies
+from execution.strategy_router import discover_strategies
 
-CONF_RISK_DB = "memory/confidence_vs_risk.json"
-VOTE_DB = "memory/strategy_votes.json"
-THRESHOLD = 0.5
+def run_strategy_voting():
+    """
+    Returns a list of strategies that are allowed to proceed to deployment filtering.
+    Currently allows all strategies that are not muted.
+    """
+    muted = load_muted_strategies()
+    strategies = discover_strategies()
 
-def run_strategy_vote():
-    if not os.path.exists(CONF_RISK_DB):
-        print("❌ No confidence-risk data.")
-        return
-
-    with open(CONF_RISK_DB, "r") as f:
-        data = json.load(f)
-
-    votes = []
-    for d in data:
-        vote = {
-            "idea": d["idea"],
-            "confidence": d["confidence"],
-            "risk": d["risk"],
-            "signal_strength": d["signal_strength"],
-            "vote": "approve" if d["signal_strength"] > THRESHOLD else "deny"
-        }
-        votes.append(vote)
-
-    with open(VOTE_DB, "w") as f:
-        json.dump(votes, f, indent=2)
-
-    print(f"🗳️ Voted on {len(votes)} strategies.")
-
-if __name__ == "__main__":
-    run_strategy_vote()
-    
+    approved = [s for s in strategies if s not in muted]
+    print(f"[VOTER] Approved strategies after voting: {approved}")
+    return approved
