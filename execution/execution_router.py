@@ -1,20 +1,34 @@
+"""
+Handles order execution for all strategies.
+Returns execution results with status, side, and simulated pnl.
+"""
+
 import random
 
-def route_order(order):
-    asset = order["asset"]
-    size = order["size"]
-    volatility = order.get("volatility", 0.02)
-    liquidity = order.get("liquidity", "high")
+def route_order(strategy_name, signal):
+    """
+    Routes a strategy's signal to execution.
 
-    method = "limit" if volatility < 0.015 else "market"
-    venue = "primary" if liquidity == "high" else "dark_pool"
+    Parameters:
+    - strategy_name: str
+    - signal: str (e.g. 'buy', 'sell', 'skip')
 
-    slippage = round(random.uniform(0.01, 0.15) * size, 2)
+    Returns:
+    - dict with execution result
+    """
+    if signal == "skip":
+        print(f"[EXECUTE] {strategy_name}: Skipped due to signal override.")
+        return {
+            "status": "skipped"
+        }
+
+    print(f"[EXECUTE] {strategy_name}: {signal.upper()} order sent.")
+
+    # Simulated PnL (mock logic — replace with live calc if needed)
+    simulated_pnl = round(random.uniform(-1.5, 2.0), 2)  # ±$1.50 to $2.00 profit/loss
 
     return {
-        "asset": asset,
-        "size": size,
-        "method": method,
-        "venue": venue,
-        "expected_slippage": slippage
+        "status": "executed",
+        "side": signal,
+        "pnl": simulated_pnl
     }

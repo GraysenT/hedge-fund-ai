@@ -1,22 +1,11 @@
-class SignalVeto:
-    def __init__(self, regime):
-        self.regime = regime  # one of 'low_vol', 'normal_vol', 'high_vol'
+def veto_signal(signal, risk_threshold=0.7, min_confidence=0.2):
+    """
+    Decide whether to block signal based on risk and confidence.
+    """
+    if signal.get("confidence", 0) < min_confidence:
+        return True
 
-    def should_execute(self, signal):
-        """
-        Args:
-            signal (dict): must include 'confidence' (0.0–1.0)
-        Returns:
-            bool: True if allowed, False if vetoed
-        """
-        confidence = signal.get('confidence', 0)
+    if signal.get("risk", 0) > risk_threshold:
+        return True
 
-        # Rules based on volatility regime
-        if self.regime == 'low_vol':
-            return confidence >= 0.6
-        elif self.regime == 'normal_vol':
-            return confidence >= 0.5
-        elif self.regime == 'high_vol':
-            return confidence >= 0.75
-        else:
-            return False  # if regime unknown, block
+    return False
