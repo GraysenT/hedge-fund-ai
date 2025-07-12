@@ -1,0 +1,22 @@
+[
+  {
+    "strategy": "stat_arb",
+    "reward": 1.474,
+    "timestamp": "2025-07-08T20:08:11.933552"
+  },
+  {
+    "strategy": "momentum",
+    "reward": 0.171,
+    "timestamp": "2025-07-08T20:08:11.933556"
+  },
+  {
+    "strategy": "macro_sentiment",
+    "reward": -0.259,
+    "timestamp": "2025-07-08T20:08:11.933558"
+  },
+  {
+    "strategy": "crypto_edge",
+    "reward": 1.257,
+    "timestamp": "2025-07-08T20:08:11.933559"
+  }
+]

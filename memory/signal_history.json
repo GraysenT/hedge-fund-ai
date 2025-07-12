@@ -1,0 +1,56 @@
+{
+  "gen_strat_r2": [
+    {
+      "symbol": "TSLA",
+      "timestamp": "2025-07-06 20:50:34",
+      "action": "buy"
+    },
+    {
+      "symbol": "TSLA",
+      "timestamp": "2025-07-05 20:50:34",
+      "action": "buy"
+    },
+    {
+      "symbol": "TSLA",
+      "timestamp": "2025-07-04 20:50:34",
+      "action": "buy"
+    },
+    {
+      "symbol": "TSLA",
+      "timestamp": "2025-07-03 20:50:34",
+      "action": "sell"
+    },
+    {
+      "symbol": "AAPL",
+      "timestamp": "2025-07-02 20:50:34",
+      "action": "sell"
+    }
+  ],
+  "gen_strat_r3": [
+    {
+      "symbol": "AAPL",
+      "timestamp": "2025-07-06 20:50:34",
+      "action": "buy"
+    },
+    {
+      "symbol": "AAPL",
+      "timestamp": "2025-07-05 20:50:34",
+      "action": "sell"
+    },
+    {
+      "symbol": "MSFT",
+      "timestamp": "2025-07-04 20:50:34",
+      "action": "buy"
+    },
+    {
+      "symbol": "TSLA",
+      "timestamp": "2025-07-03 20:50:34",
+      "action": "buy"
+    },
+    {
+      "symbol": "MSFT",
+      "timestamp": "2025-07-02 20:50:34",
+      "action": "buy"
+    }
+  ]
+}

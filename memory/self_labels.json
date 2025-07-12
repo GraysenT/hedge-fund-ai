@@ -1,0 +1,37 @@
+[
+  {
+    "strategy": "stat_arb",
+    "action": "SELL",
+    "confidence": 0.9,
+    "label": "success",
+    "timestamp": "2025-07-08T20:08:12.566525"
+  },
+  {
+    "strategy": "stat_arb",
+    "action": "SELL",
+    "confidence": 0.9,
+    "label": "success",
+    "timestamp": "2025-07-08T20:08:12.566534"
+  },
+  {
+    "strategy": "macro_sentiment",
+    "action": "BUY",
+    "confidence": 0.91,
+    "label": "success",
+    "timestamp": "2025-07-08T20:08:12.566537"
+  },
+  {
+    "strategy": "crypto_edge",
+    "action": "HOLD",
+    "confidence": 0.87,
+    "label": "success",
+    "timestamp": "2025-07-08T20:08:12.566539"
+  },
+  {
+    "strategy": "crypto_edge",
+    "action": "BUY",
+    "confidence": 0.87,
+    "label": "success",
+    "timestamp": "2025-07-08T20:08:12.566541"
+  }
+]

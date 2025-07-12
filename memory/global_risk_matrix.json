@@ -1,0 +1,8 @@
+[
+  {
+    "strategy": "stat_arb",
+    "pnl": -0.75,
+    "volatility": NaN,
+    "drawdown_est": -0.18,
+    "risk_score": NaN,
+    "red_flag": 

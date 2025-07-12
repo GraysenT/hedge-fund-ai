@@ -1,0 +1,9 @@
+[
+  {
+    "id": "h1",
+    "idea": "MACD divergence with RSI oversold leads to mean reversion",
+    "context": "Tested on AAPL/QQQ/SPY",
+    "score": 0.82,
+    "timestamp": "2024-12-01T15:00:00Z"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "gen_strat_r2": {
+    "capital_allocated": 500000.0,
+    "weight": 1.0,
+    "share_of_pool": 0.5
+  },
+  "gen_strat_r3": {
+    "capital_allocated": 500000.0,
+    "weight": 1.0,
+    "share_of_pool": 0.5
+  }
+}

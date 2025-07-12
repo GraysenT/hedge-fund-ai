@@ -1,0 +1,14 @@
+[
+  {
+    "strategy": "stat_arb",
+    "score": 0.63
+  },
+  {
+    "strategy": "macro_sentiment",
+    "score": 0.54
+  },
+  {
+    "strategy": "crypto_edge",
+    "score": 0.435
+  }
+]

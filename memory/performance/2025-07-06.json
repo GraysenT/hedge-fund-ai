@@ -1,0 +1,12 @@
+{
+  "gen_strat_r2": {
+    "capital_allocated": 500000.0,
+    "return_pct": 0.0434,
+    "pnl": 21700.0
+  },
+  "gen_strat_r3": {
+    "capital_allocated": 500000.0,
+    "return_pct": -0.0477,
+    "pnl": -23850.0
+  }
+}

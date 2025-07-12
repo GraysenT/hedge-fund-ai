@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-07-06T22:02:00",
+    "strategy": "gen_strat_r2",
+    "symbol": "AAPL",
+    "action": "buy",
+    "qty": 10,
+    "price": 195.23,
+    "alpaca_id": "demo-order-id-123"
+  }
+]

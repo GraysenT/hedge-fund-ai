@@ -1,0 +1,16 @@
+[
+  {
+    "strategy":"stat_arb",
+    "pnl_total":25.5,
+    "trades":1,
+    "avg_return":25.5,
+    "timestamp":"2025-07-08T20:08:12.575559"
+  },
+  {
+    "strategy":"crypto_edge",
+    "pnl_total":-106.05,
+    "trades":11,
+    "avg_return":-9.6409090909,
+    "timestamp":"2025-07-08T20:08:12.575559"
+  }
+]
