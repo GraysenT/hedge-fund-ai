@@ -1,32 +1,52 @@
 import streamlit as st
 import pandas as pd
 import os
-from performance.realized_pnl_tracker import RealizedPnLTracker
+import json
+from utils.paths import TRADE_LOG_FILE
 
-st.set_page_config(page_title="💰 Realized P&L Dashboard", layout="wide")
-st.title("💰 Realized Profit & Loss by Strategy")
+st.set_page_config(page_title="📈 Live PnL Tracker", layout="wide")
+st.title("📈 Profit & Loss Dashboard")
 
-LOG_FILE = "trade_logs.csv"
+# Load trade log
+if not os.path.exists(TRADE_LOG_FILE):
+    st.warning("Trade log not found.")
+    st.stop()
 
-if not os.path.exists(LOG_FILE):
-    st.warning("No trade log file found yet.")
-else:
-    tracker = RealizedPnLTracker()
-    df = tracker.load_trade_log(LOG_FILE)
-    pnl_df = tracker.compute_realized_pnl(df)
+with open(TRADE_LOG_FILE, "r") as f:
+    try:
+        logs = json.load(f)
+    except Exception as e:
+        st.error(f"Failed to parse trade log: {e}")
+        st.stop()
 
-    if pnl_df.empty:
-        st.info("No closed trades to compute realized P&L yet.")
-    else:
-        pnl_df["date"] = pd.to_datetime(pnl_df["timestamp"]).dt.date
+# Parse into DataFrame
+rows = []
+for entry in logs:
+    ts = entry.get("timestamp")
+    for strat, result in entry.get("executions", {}).items():
+        if isinstance(result, dict) and "side" in result:
+            pnl = result.get("pnl", 0)
+            rows.append({
+                "timestamp": ts,
+                "strategy": strat,
+                "side": result.get("side"),
+                "pnl": pnl
+            })
 
-        st.markdown("### 📈 Cumulative Realized P&L by Strategy")
-        cumulative = pnl_df.groupby("strategy")["realized_pnl"].sum().sort_values(ascending=False)
-        st.bar_chart(cumulative)
+if not rows:
+    st.info("No PnL data available yet.")
+    st.stop()
 
-        st.markdown("### 📆 Daily Realized P&L Over Time")
-        daily = pnl_df.groupby(["date", "strategy"])["realized_pnl"].sum().unstack().fillna(0)
-        st.line_chart(daily)
+df = pd.DataFrame(rows)
+df["timestamp"] = pd.to_datetime(df["timestamp"])
+df = df.sort_values("timestamp")
 
-        st.markdown("### 🧾 Recent Realized Trades")
-        st.dataframe(pnl_df.sort_values("timestamp", ascending=False).head(20))
+# Cumulative PnL
+df["cum_pnl"] = df["pnl"].cumsum()
+
+# Layout
+st.subheader("💰 Cumulative PnL Over Time")
+st.line_chart(df.set_index("timestamp")["cum_pnl"])
+
+st.subheader("🧾 Trade Log")
+st.dataframe(df.sort_values("timestamp", ascending=False), use_container_width=True)
