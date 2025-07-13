@@ -1,48 +1,41 @@
-import os
-import pandas as pd
-import numpy as np
-from datetime import datetime
+from sklearn.model_selection import TimeSeriesSplit
 
-# Placeholder paths - adapt to match your data locations
-HISTORICAL_SIGNALS_PATH = "data/historical_signals.csv"
-HISTORICAL_PRICES_PATH = "data/historical_prices.csv"
-BACKTEST_RESULTS_PATH = "backtesting/results/"
+class Backtester:
+    def __init__(self, strategies):
+        self.strategies = strategies
+    
+    def run_backtest(self):
+        """Run backtest for all strategies."""
+        for strategy in self.strategies:
+            self.test_strategy(strategy)
+    
+    def test_strategy(self, strategy):
+        """Test a given strategy."""
+        # Simulate fetching historical data
+        historical_data = self.get_historical_data("AAPL")
+        
+        # Walk-forward analysis using TimeSeriesSplit
+        self.walk_forward_analysis(historical_data, strategy)
 
+    def get_historical_data(self, symbol):
+        """Simulate fetching historical data."""
+        data = pd.DataFrame(np.random.randn(100, 1), columns=[symbol])  # Dummy data
+        return data
 
-def load_data():
-    signals = pd.read_csv(HISTORICAL_SIGNALS_PATH, parse_dates=['timestamp'])
-    prices = pd.read_csv(HISTORICAL_PRICES_PATH, parse_dates=['timestamp'])
-    return signals, prices
+    def walk_forward_analysis(self, data, strategy, num_splits=5):
+        """Perform walk-forward validation."""
+        tscv = TimeSeriesSplit(n_splits=num_splits)
+        for train_index, test_index in tscv.split(data):
+            train, test = data[train_index], data[test_index]
+            
+            # Train strategy on the training data
+            strategy.train(train)
+            
+            # Test strategy on the out-of-sample (test) data
+            predictions = strategy.get_signal(test)
+            sharpe_ratio = self.calculate_sharpe_ratio(predictions, test)
+            print(f"Sharpe Ratio for {strategy.__class__.__name__} (walk-forward): {sharpe_ratio}")
 
-
-def backtest(signals, prices):
-    merged = pd.merge(signals, prices, on=['timestamp', 'asset'], how='inner')
-    merged.sort_values(by=['asset', 'timestamp'], inplace=True)
-
-    merged['position'] = merged['signal'].shift(1)  # lag signal to avoid lookahead bias
-    merged['returns'] = merged['price'].pct_change()
-    merged['strategy_returns'] = merged['position'] * merged['returns']
-
-    performance = (
-        merged.groupby('asset')['strategy_returns']
-        .agg(['sum', 'mean', 'std', 'count'])
-        .rename(columns={'sum': 'total_return', 'mean': 'avg_return', 'std': 'volatility'})
-    )
-    performance['sharpe_ratio'] = performance['avg_return'] / performance['volatility'] * np.sqrt(252)
-    return merged, performance.reset_index()
-
-
-def save_results(log_df, perf_df):
-    if not os.path.exists(BACKTEST_RESULTS_PATH):
-        os.makedirs(BACKTEST_RESULTS_PATH)
-
-    date_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    log_df.to_csv(f"{BACKTEST_RESULTS_PATH}backtest_log_{date_str}.csv", index=False)
-    perf_df.to_csv(f"{BACKTEST_RESULTS_PATH}backtest_perf_{date_str}.csv", index=False)
-    print(f"✅ Backtest results saved to {BACKTEST_RESULTS_PATH}")
-
-
-if __name__ == '__main__':
-    signals, prices = load_data()
-    log, perf = backtest(signals, prices)
-    save_results(log, perf)
+    def calculate_sharpe_ratio(self, profits, test_data=None):
+        """Calculate Sharpe ratio based on profit/loss."""
+        return np.mean(profits) / np.std(profits)  # Simplified Sharpe Ratio calculation
