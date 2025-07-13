@@ -1,28 +1,31 @@
 import pandas as pd
-from strategies.strategy_base import StrategyBase
 
-class Breakout(StrategyBase):
-    def __init__(self, name, lookback_period=20, breakout_threshold=1.05):
-        super().__init__(name)
-        self.lookback_period = lookback_period
-        self.breakout_threshold = breakout_threshold  # e.g., 5% breakout
+class Breakout:
+    def __init__(self, atr_period=14):
+        self.atr_period = atr_period
 
-    def generate_signal(self, market_data):
-        """Generate trade signal based on breakout strategy."""
-        market_data['high_max'] = market_data['high'].rolling(window=self.lookback_period).max()
-        market_data['low_min'] = market_data['low'].rolling(window=self.lookback_period).min()
-        
-        last_price = market_data['close'].iloc[-1]
-        last_high = market_data['high_max'].iloc[-1]
-        last_low = market_data['low_min'].iloc[-1]
+    def get_signal(self, live_data):
+        """Get buy or sell signal based on breakout strategy."""
+        prices = live_data["AAPL"]
 
-        if last_price > last_high * self.breakout_threshold:
-            return "long"  # Breakout upwards, buy signal
-        elif last_price < last_low * self.breakout_threshold:
-            return "short"  # Breakdown, sell signal
-        else:
-            return "neutral"  # No signal
+        # Calculate ATR (Average True Range)
+        high_low = prices['high'] - prices['low']
+        high_close = abs(prices['high'] - prices['close'].shift())
+        low_close = abs(prices['low'] - prices['close'].shift())
+        tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
+        atr = tr.rolling(window=self.atr_period).mean()
 
-    def calculate_performance(self, entry_price, exit_price, position_size):
-        """Calculate PnL for breakout strategy."""
-        return (exit_price - entry_price) * position_size  # For a long position
+        # Define breakout levels based on ATR
+        upper_level = prices['close'].rolling(window=self.atr_period).max() + 2 * atr
+        lower_level = prices['close'].rolling(window=self.atr_period).min() - 2 * atr
+
+        # Generate signals based on breakout
+        if prices['close'][-1] > upper_level[-1]:
+            return "buy"
+        elif prices['close'][-1] < lower_level[-1]:
+            return "sell"
+        return "hold"
+    
+    def set_params(self, params):
+        """Set optimized parameters for the strategy."""
+        self.atr_period = params.get('atr_period', self.atr_period)
