@@ -1,0 +1,8 @@
+cloud_mode: true
+email_alerts:
+  enable: true
+  to: graysentorczon@icloud.com
+
+sms_alerts:
+  enable: true
+  to: "+1408XXXXXXX"

@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  hedge_fund_ai:
+    build: .
+    container_name: hedge_fund_ai_main
+    volumes:
+      - .:/app
+    command: python deployment/main.py
+
+  hedge_fund_api:
+    build: .
+    container_name: hedge_fund_api
+    volumes:
+      - .:/app
+    command: bash deployment/api_docker.sh
+    ports:
+      - "8080:8080"
