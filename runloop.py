@@ -1,103 +1,93 @@
-import os
+"""
+Main autonomous execution loop for the hedge fund AI system.
+- Routes strategies
+- Applies patches
+- Executes orders
+- Logs trades and signals
+"""
+
 import time
 import json
-from datetime import datetime
-from dotenv import load_dotenv
-
-from data.quote_feed import get_latest_price
-from strategies.stat_arb_engine import generate_stat_arb_signal
-from strategies.macro_sentiment import generate_macro_sentiment_signal
-from strategies.crypto_edge import generate_crypto_signal
+import os
+from execution.strategy_router import route_all_strategies
 from execution.execution_router import route_order
-from execution.alpaca_router import place_alpaca_order
-from alerts.slack_notifier import send_slack_alert
-
-load_dotenv()
-
-TICKERS = ["AAPL", "TSLA", "SPY", "BTC/USD", "ETH/USD"]
-TRADE_LOG = "logs/trade_history.json"
-SIGNAL_LOG = "logs/signal_events.json"
-
-USE_ALPACA = True
-USE_CRYPTO = True
-
-def fetch_signal(ticker, price):
-    if ticker in ["AAPL", "TSLA"]:
-        return generate_stat_arb_signal(ticker, price)
-    elif ticker == "SPY":
-        return generate_macro_sentiment_signal(ticker, price)
-    elif ticker in ["BTC/USD", "ETH/USD"]:
-        return generate_crypto_signal(ticker, price)
-    else:
-        return None
+from utils.paths import TRADE_LOG_FILE, SIGNAL_LOG
+from utils.log_utils import rotate_log
+rotate_log(TRADE_LOG_FILE)
+rotate_log(SIGNAL_LOG)
 
 def run_main_cycle():
-    print(f"\n🧠 Starting Hedge Fund AI Main Loop...")
+    print("📈 Starting Hedge Fund AI Main Loop...")
 
-    os.makedirs("logs", exist_ok=True)
+    # Step 1: Route signals
+    signals = route_all_strategies()
+
+    # Step 2: Execute each signal
+    executed_trades = {}
+    for strategy_name, signal in signals.items():
+        try:
+            result = route_order(strategy_name, signal)
+            executed_trades[strategy_name] = result
+        except Exception as e:
+            print(f"[EXECUTION ERROR] {strategy_name}: {e}")
+            executed_trades[strategy_name] = {"status": "error", "error": str(e)}
+
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+
+    # Step 3: Log trade execution
+    trade_entry = {
+        "timestamp": timestamp,
+        "signals": signals,
+        "executions": executed_trades
+    }
+
+    if not os.path.exists(TRADE_LOG_FILE):
+        with open(TRADE_LOG_FILE, "w") as f:
+            json.dump([], f)
 
     try:
-        with open(TRADE_LOG, "r") as f:
-            existing_trades = json.load(f)
-    except:
-        existing_trades = []
+        with open(TRADE_LOG_FILE, "r") as f:
+            trade_log = json.load(f)
+            if not isinstance(trade_log, list):
+                print("⚠️ trade_log.json was not a list. Resetting.")
+                trade_log = []
+    except json.JSONDecodeError:
+        print("⚠️ trade_log.json was corrupted. Resetting.")
+        trade_log = []
 
-    new_signals = []
-    new_trades = []
+    trade_log.append(trade_entry)
 
-    for ticker in TICKERS:
-        price_data = get_latest_price(ticker)
-        if not price_data or not price_data.get("last"):
-            continue
+    with open(TRADE_LOG_FILE, "w") as f:
+        json.dump(trade_log, f, indent=2)
 
-        signal = fetch_signal(ticker, price_data["last"])
-        if not signal:
-            continue
+    # Step 4: Log raw signals for history tracking
+    signal_entry = {
+        "timestamp": timestamp,
+        "signals": signals
+    }
 
-        signal["timestamp"] = datetime.utcnow().isoformat()
-        new_signals.append(signal)
-        print(f"📡 Signal: {signal}")
+    if not os.path.exists(SIGNAL_LOG):
+        with open(SIGNAL_LOG, "w") as f:
+            json.dump([], f)
 
-        if signal["action"] == "BUY":
-            if USE_ALPACA and ticker not in ["BTC/USD", "ETH/USD"]:
-                place_alpaca_order(signal["asset"], qty=1, side="buy")
-                execution_note = "Alpaca executed"
-            else:
-                execution = route_order({
-                    "asset": signal["asset"],
-                    "size": 100,
-                    "volatility": 0.02,
-                    "liquidity": "high"
-                })
-                execution_note = "Simulated"
-                trade = {
-                    "timestamp": signal["timestamp"],
-                    "strategy": signal["strategy"],
-                    "asset": signal["asset"],
-                    "action": signal["action"],
-                    "size": 100,
-                    "price": signal["price"],
-                    "pnl": round(-1 * execution["expected_slippage"], 2),
-                    "method": execution["method"],
-                    "venue": execution["venue"]
-                }
-                new_trades.append(trade)
-                print(f"💰 Trade Executed: {trade}")
+    try:
+        with open(SIGNAL_LOG, "r") as f:
+            signal_log = json.load(f)
+            if not isinstance(signal_log, list):
+                print("⚠️ signal_log.json was not a list. Resetting.")
+                signal_log = []
+    except json.JSONDecodeError:
+        print("⚠️ signal_log.json was corrupted. Resetting.")
+        signal_log = []
 
-            send_slack_alert(
-                f"🟢 {signal['asset']} → {signal['action']} @ {signal['price']} ({execution_note})",
-                tag="TRADE"
-            )
+    signal_log.append(signal_entry)
 
     with open(SIGNAL_LOG, "w") as f:
-        json.dump(new_signals, f, indent=2)
+        json.dump(signal_log, f, indent=2)
 
-    with open(TRADE_LOG, "w") as f:
-        json.dump(existing_trades + new_trades, f, indent=2)
-
-    print("✅ Runloop complete.")
+    print("✅ Cycle complete.\n")
 
 if __name__ == "__main__":
     while True:
         run_main_cycle()
-        time.sleep(60)  # Run every 60 seconds
+        time.sleep(1)  # Run once per second

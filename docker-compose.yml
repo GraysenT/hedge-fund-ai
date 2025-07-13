@@ -1,35 +1,27 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  hedge-fund-core:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: hedge-fund-core
-    restart: always
-    env_file:
-      - .env
+  streamlit:
+    build: .
+    command: streamlit run dashboards/control_center.py
     volumes:
       - .:/app
-    working_dir: /app
-    command: python3 runloop.py
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "5"
+    ports:
+      - "8501:8501"
+    restart: always
 
-  # Optional: live dashboard via Streamlit (uncomment to enable)
-  # dashboard:
-  #   build:
-  #     context: .
-  #   container_name: hedge-fund-dashboard
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - .:/app
-  #   working_dir: /app
-  #   ports:
-  #     - "8501:8501"
-  #   command: streamlit run dashboards/control_center.py
+  fastapi:
+    build: .
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    restart: always
+
+  scheduler:
+    build: .
+    command: python3 runloop.py
+    volumes:
+      - .:/app
+    restart: always
