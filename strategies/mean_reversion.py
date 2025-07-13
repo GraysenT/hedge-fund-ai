@@ -1,27 +1,39 @@
 import pandas as pd
-from strategies.strategy_base import StrategyBase
 
-class MeanReversion(StrategyBase):
-    def __init__(self, name, moving_average_period=20, threshold=1.5):
-        super().__init__(name)
-        self.moving_average_period = moving_average_period
-        self.threshold = threshold  # The number of standard deviations to use for triggering trades
+class MeanReversion:
+    def __init__(self, lookback_period=20, rsi_period=14):
+        self.lookback_period = lookback_period
+        self.rsi_period = rsi_period
 
-    def generate_signal(self, market_data):
-        """Generate trade signal based on mean reversion strategy."""
-        market_data['SMA'] = market_data['close'].rolling(window=self.moving_average_period).mean()
-        market_data['std_dev'] = market_data['close'].rolling(window=self.moving_average_period).std()
-        last_price = market_data['close'].iloc[-1]
-        last_sma = market_data['SMA'].iloc[-1]
-        last_std_dev = market_data['std_dev'].iloc[-1]
-        
-        if last_price < last_sma - (self.threshold * last_std_dev):
-            return "long"  # Buy signal (price below mean by a certain threshold)
-        elif last_price > last_sma + (self.threshold * last_std_dev):
-            return "short"  # Sell signal (price above mean by a certain threshold)
-        else:
-            return "neutral"  # No signal (price within acceptable range of the mean)
+    def get_signal(self, live_data):
+        """Get buy or sell signal based on mean-reversion strategy."""
+        prices = live_data["AAPL"]
 
-    def calculate_performance(self, entry_price, exit_price, position_size):
-        """Calculate PnL for mean reversion strategy."""
-        return (entry_price - exit_price) * position_size  # For a long position
+        # Calculate the rolling mean and standard deviation
+        rolling_mean = prices.rolling(window=self.lookback_period).mean()
+        rolling_std = prices.rolling(window=self.lookback_period).std()
+
+        # Calculate upper and lower Bollinger Bands
+        upper_band = rolling_mean + (rolling_std * 2)
+        lower_band = rolling_mean - (rolling_std * 2)
+
+        # Calculate RSI (Relative Strength Index)
+        delta = prices.diff()
+        gain = delta.where(delta > 0, 0)
+        loss = -delta.where(delta < 0, 0)
+        avg_gain = gain.rolling(window=self.rsi_period).mean()
+        avg_loss = loss.rolling(window=self.rsi_period).mean()
+        rs = avg_gain / avg_loss
+        rsi = 100 - (100 / (1 + rs))
+
+        # Check conditions for buy/sell signal
+        if prices[-1] < lower_band[-1] and rsi[-1] < 30:
+            return "buy"
+        elif prices[-1] > upper_band[-1] and rsi[-1] > 70:
+            return "sell"
+        return "hold"
+    
+    def set_params(self, params):
+        """Set optimized parameters for the strategy."""
+        self.lookback_period = params.get('lookback_period', self.lookback_period)
+        self.rsi_period = params.get('rsi_period', self.rsi_period)

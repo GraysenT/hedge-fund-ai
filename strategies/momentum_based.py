@@ -1,31 +1,33 @@
 import pandas as pd
-from strategies.strategy_base import StrategyBase
 
-class MomentumBased(StrategyBase):
-    def __init__(self, name, rsi_period=14):
-        super().__init__(name)
-        self.rsi_period = rsi_period
+class MomentumBased:
+    def __init__(self, roc_period=14):
+        self.roc_period = roc_period
 
-    def generate_signal(self, market_data):
-        """Generate trade signal based on RSI momentum strategy."""
-        delta = market_data['close'].diff()
+    def get_signal(self, live_data):
+        """Get buy or sell signal based on momentum strategy."""
+        prices = live_data["AAPL"]
+
+        # Calculate Rate of Change (ROC)
+        roc = (prices - prices.shift(self.roc_period)) / prices.shift(self.roc_period) * 100
+
+        # Calculate RSI (Relative Strength Index)
+        delta = prices.diff()
         gain = delta.where(delta > 0, 0)
         loss = -delta.where(delta < 0, 0)
-        avg_gain = gain.rolling(window=self.rsi_period).mean()
-        avg_loss = loss.rolling(window=self.rsi_period).mean()
-
+        avg_gain = gain.rolling(window=14).mean()
+        avg_loss = loss.rolling(window=14).mean()
         rs = avg_gain / avg_loss
         rsi = 100 - (100 / (1 + rs))
 
-        last_rsi = rsi.iloc[-1]
-        
-        if last_rsi > 70:
-            return "short"  # Sell signal (overbought market)
-        elif last_rsi < 30:
-            return "long"  # Buy signal (oversold market)
-        else:
-            return "neutral"  # No signal (market is neutral)
-
-    def calculate_performance(self, entry_price, exit_price, position_size):
-        """Calculate PnL for momentum-based strategy."""
-        return (exit_price - entry_price) * position_size  # For a long position
+        # Buy signal when momentum is positive and RSI is not overbought
+        if roc[-1] > 0 and rsi[-1] < 70:
+            return "buy"
+        # Sell signal when momentum is negative and RSI is not oversold
+        elif roc[-1] < 0 and rsi[-1] > 30:
+            return "sell"
+        return "hold"
+    
+    def set_params(self, params):
+        """Set optimized parameters for the strategy."""
+        self.roc_period = params.get('roc_period', self.roc_period)
