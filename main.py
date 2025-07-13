@@ -1,45 +1,78 @@
-from datetime import datetime
-from signal_generator import get_signals
-from strategy_router.strategy_router import route_signal
-from execution.signal_executor import execute_signal
-from execution.signal_logger import log_signals
-from performance.performance_tracker import log_daily_performance
-from evolution.snapshot_saver import save_evolution_snapshot
-from reinforcement.self_label_agent import reinforce
-from ai.autonomous_upgrader import run_autonomous_upgrade_cycle
+import time
+import logging
+from strategies.trend_following import TrendFollowing
+from strategies.mean_reversion import MeanReversion
+from strategies.momentum_based import MomentumBased
+from strategies.breakout import Breakout
+from strategies.macd import MACD
+from strategies.bollinger_bands import BollingerBands
+from backtesting.backtester import Backtester
+from data_fetching.real_time_data import RealTimeData
+from risk_management.risk_manager import RiskManager
+from utils.performance_metrics import calculate_sharpe_ratio
+from utils.strategy_optimizer import optimize_strategy
 
-def main():
-    print("🚀 Starting Trading System Main Loop")
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
-    # 🧠 Step 1: Get today's signals
-    signals_df = get_signals()
+# Initialize Alpaca (or other API) for real-time data and execution
+api_key = 'your_alpaca_api_key'
+secret_key = 'your_alpaca_secret_key'
+real_time_data = RealTimeData(api_key, secret_key)
+risk_manager = RiskManager()
 
-    # 🧠 Step 2: Route signals based on strategy weights, confidence, triggers
-    routed_df = route_signal(signals_df)
+# Initialize strategies
+strategies = [
+    TrendFollowing(),
+    MeanReversion(),
+    MomentumBased(),
+    Breakout(),
+    MACD(),
+    BollingerBands()
+]
 
-    # 📝 Step 3: Log signals for audit and learning
-    log_signals(routed_df)
+# Run the backtester
+backtester = Backtester(strategies)
+backtester.run_backtest()
 
-    # ⚙️ Step 4: Execute valid signals
-    for _, row in routed_df.iterrows():
-        execute_signal(row)
+# Run real-time trading loop
+def run_trading_loop():
+    while True:
+        try:
+            # Fetch live data for multiple assets (e.g., AAPL, BTC/USD)
+            live_data = real_time_data.get_live_data(["AAPL", "BTCUSD"])
 
-    # 📊 Step 5: Log daily performance
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    log_daily_performance(
-        date=today,
-        pnl_dict={},  # fill in with actual PnL results
-        capital_dict={},  # fill in with capital used
-        sharpe_dict={}  # fill in with strategy Sharpe
-    )
+            # Choose strategy with the best signal
+            signals = {}
+            for strategy in strategies:
+                signal = strategy.get_signal(live_data)
+                signals[strategy.name] = signal
+            
+            # Select the best strategy based on the signals
+            best_strategy = max(signals, key=signals.get)
+            logging.info(f"Best Strategy: {best_strategy}")
 
-    # 🧠 Step 6: Save system snapshot
-    save_evolution_snapshot()
+            # Risk management: Calculate position size and execute trade
+            position_size = risk_manager.calculate_position_size(live_data)
+            risk_manager.place_trade(best_strategy, position_size)
 
-    # ♻️ Step 7: Run autonomous improvement logic
-    run_autonomous_upgrade_cycle()
+            # Log performance
+            sharpe_ratio = calculate_sharpe_ratio(live_data)
+            logging.info(f"Sharpe Ratio: {sharpe_ratio}")
 
-    print("✅ Main cycle complete.")
+            # Wait for the next cycle
+            time.sleep(60)
 
-if __name__ == "__main__":
-    main()
+        except Exception as e:
+            logging.error(f"Error in trading loop: {e}")
+            time.sleep(60)
+
+# Optimize strategies using hyperparameter optimization
+def optimize_trading_strategies():
+    for strategy in strategies:
+        optimized_params = optimize_strategy(strategy)
+        strategy.set_params(optimized_params)
+
+# Run strategy optimization and trading loop
+optimize_trading_strategies()
+run_trading_loop()
