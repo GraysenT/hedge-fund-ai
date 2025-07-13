@@ -1,7 +1,4 @@
-from datetime import datetime
-from utils.paths import SELF_BUILD_LOG
+import logging
 
-def log_event(message):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open(SELF_BUILD_LOG, "a") as f:
-        f.write(f"[{timestamp}] {message}\n")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+log = logging.getLogger("HedgeFundAI")
