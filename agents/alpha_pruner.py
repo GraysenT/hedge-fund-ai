@@ -57,5 +57,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 
-#This code defines a `Strategy` class, which represents a strategy with a name, score, and an enabled status. The `StrategyManager` class manages these strategies, evaluates them, and can disable those that are underperforming based on a specified threshold. The `main` function sets up some strategies, evaluates them, disables the weak ones, and then simulates running routing with the remaining enabled strategies.
+This code defines a `Strategy` class, which represents a strategy with a name, score, and an enabled status. The `StrategyManager` class manages these strategies, evaluates them, and can disable those that are underperforming based on a specified threshold. The `main` function sets up some strategies, evaluates them, disables the weak ones, and then simulates running routing with the remaining enabled strategies.

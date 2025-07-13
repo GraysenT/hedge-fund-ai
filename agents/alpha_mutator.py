@@ -1,3 +1,4 @@
+```python
 import random
 
 def mutate_logic(base_logic, mutation_rate=0.1, mutation_amount=0.2):
@@ -63,3 +64,4 @@ mutated_logic = mutate_logic(base_logic)
 
 # Test the mutated logic
 print(mutated_logic(5))  # Output may vary due to random mutation
+```

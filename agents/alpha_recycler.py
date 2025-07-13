@@ -1,3 +1,4 @@
+```python
 import random
 
 class StrategyHybridizer:
@@ -34,3 +35,4 @@ if __name__ == "__main__":
     hybrid1, hybrid2 = hybridizer.create_hybrid_strategy()
     print("Hybrid Strategy 1:", hybrid1)
     print("Hybrid Strategy 2:", hybrid2)
+```

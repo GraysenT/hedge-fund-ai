@@ -1,3 +1,4 @@
+```python
 import random
 
 class Strategy:
@@ -48,5 +49,6 @@ print(f"Strategy 1 ({strategy1.name}): {strategy1.execute(test_data)}")
 print(f"Strategy 2 ({strategy2.name}): {strategy2.execute(test_data)}")
 print(f"Strategy 3 ({strategy3.name}): {strategy3.execute(test_data)}")
 print(f"New Strategy ({new_strategy.name}): {new_strategy.execute(test_data)}")
+```
 
-#This Python code defines a framework for creating and combining different logical strategies. It defines three example strategies based on simple logic traits and then combines these traits to create a new strategy. The new strategy's logic is a combination of the results of the existing strategies, demonstrating a basic form of strategy scaffold based on successful logic traits.
+This Python code defines a framework for creating and combining different logical strategies. It defines three example strategies based on simple logic traits and then combines these traits to create a new strategy. The new strategy's logic is a combination of the results of the existing strategies, demonstrating a basic form of strategy scaffold based on successful logic traits.
