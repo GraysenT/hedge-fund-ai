@@ -1,4 +1,3 @@
-```python
 class ModuleRegistry:
     def __init__(self):
         self.modules = {}
@@ -49,4 +48,3 @@ last_update = registry.get_metadata("last_update")
 print(auth_module)
 print(login_strategy(True, "admin", "admin"))
 print(last_update)
-```
