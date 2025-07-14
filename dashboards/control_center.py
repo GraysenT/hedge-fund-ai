@@ -1,68 +1,60 @@
 import streamlit as st
 import pandas as pd
-import os
-import json
+from utils.loaders import load_json, load_csv
+from utils.paths import *
 
-st.set_page_config(page_title="Hedge Fund AI Control Center", layout="wide")
+st.set_page_config(layout="wide", page_title="🧠 Control Center")
 
-st.title("💹 Hedge Fund AI Control Center")
+st.title("🧠 Hedge Fund AI - Master Control Center")
 
-# === LIVE SIGNALS ===
-st.subheader("📡 Live Signals")
-if os.path.exists("logs/signal_events.json"):
+tabs = st.tabs([
+    "Live Signals", "Strategies", "Trades", "Alpha Health", "Overrides", "Deployment"
+])
+
+with tabs[0]:
+    st.header("📡 Live Signals")
     try:
-        signals = pd.read_json("logs/signal_events.json")
-        st.dataframe(signals.tail(10), use_container_width=True)
+        signals = load_json(SIGNAL_LOG)
+        st.dataframe(pd.DataFrame(signals).sort_values("confidence", ascending=False), use_container_width=True)
     except:
-        st.warning("⚠️ Could not load signals.")
-else:
-    st.info("No signal log yet.")
+        st.warning("No signals loaded.")
 
-# === TRADE HISTORY ===
-st.subheader("💰 Recent Trades")
-if os.path.exists("logs/trade_history.json"):
+with tabs[1]:
+    st.header("📘 Strategies")
     try:
-        trades = pd.read_json("logs/trade_history.json")
-        trades["timestamp"] = pd.to_datetime(trades["timestamp"])
-        st.dataframe(trades.tail(10), use_container_width=True)
-
-        pnl_chart = trades.groupby("timestamp")["pnl"].sum().cumsum()
-        st.line_chart(pnl_chart)
+        strategies = load_json(STRATEGY_STATUS_FILE)
+        st.dataframe(pd.DataFrame(strategies).sort_values("Confidence", ascending=False), use_container_width=True)
     except:
-        st.warning("⚠️ Could not load trades.")
-else:
-    st.info("No trades yet.")
+        st.warning("No strategy status file found.")
 
-# === STRATEGY ALLOCATIONS ===
-st.subheader("📈 Current Allocations")
-if os.path.exists("memory/optimized_allocations.json"):
+with tabs[2]:
+    st.header("💼 Trade Journal")
     try:
-        alloc = pd.read_json("memory/optimized_allocations.json")
-        if "strategy" in alloc.columns and "weight" in alloc.columns:
-            st.bar_chart(alloc.set_index("strategy")["weight"])
-        else:
-            st.warning("⚠️ Allocation file missing required columns.")
+        trades = pd.read_csv(TRADE_LOG_FILE)
+        st.dataframe(trades.sort_values("Timestamp", ascending=False), use_container_width=True)
     except:
-        st.warning("⚠️ Could not parse allocation data.")
-else:
-    st.warning("No allocation data found.")
+        st.warning("Trade log missing.")
 
-# === SYSTEM STATUS ===
-st.subheader("🛡️ System Status")
-files = [
-    "memory/deployability_scores.json",
-    "memory/confidence_vs_risk.json",
-    "memory/optimized_allocations.json",
-    "memory/alpha_attribution.json",
-    "memory/global_risk_matrix.json",
-    "logs/trade_history.json"
-]
+with tabs[3]:
+    st.header("🩺 Alpha Health Monitor")
+    try:
+        health = pd.read_csv(ALPHA_HEALTH_FILE)
+        st.dataframe(health.sort_values("AlphaHealth", ascending=False), use_container_width=True)
+    except:
+        st.warning("Alpha health file not found.")
 
-for f in files:
-    if os.path.exists(f) and os.stat(f).st_size > 0:
-        st.success(f"✅ {f}")
-    else:
-        st.error(f"❌ {f} missing or empty")
+with tabs[4]:
+    st.header("🎛 Manual Overrides")
+    try:
+        overrides = load_json(OVERRIDE_FILE)
+        st.json(overrides)
+    except:
+        st.warning("No overrides active.")
 
-st.markdown("---")
-st.caption("© 2025 Hedge Fund AI | Graysen Torczon")
+with tabs[5]:
+    st.header("🚀 Deployment Status")
+    try:
+        status = load_json(DEPLOYMENT_STATUS_FILE)
+        st.dataframe(pd.DataFrame(status), use_container_width=True)
+    except:
+        st.warning("No deployment status file found.")
