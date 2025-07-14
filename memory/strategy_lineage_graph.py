@@ -22,3 +22,6 @@ class StrategyLineageGraph:
         nx.draw(self.graph, with_labels=True, node_color='lightblue', edge_color='gray')
         plt.title("📈 Strategy Lineage Graph")
         plt.show()
+    
+    def trace_lineage(strategy):
+        return {'strategy': strategy.name, 'origin': strategy.parent_name}
