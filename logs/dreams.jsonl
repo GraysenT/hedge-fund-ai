@@ -1,0 +1,6 @@
+with open("logs/dreams.jsonl", "a") as f:
+    f.write(json.dumps(dream) + "\n")
+
+with open("logs/forks.jsonl", "a") as f:
+    f.write(json.dumps({"sim": sim_id, "tick": self.tick}) + "\n")
+    
