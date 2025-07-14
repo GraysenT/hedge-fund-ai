@@ -14,3 +14,6 @@ class VotingEngine:
             resolved[market] = count.most_common(1)[0][0]  # 'buy', 'sell', 'hold'
         self.votes.clear()
         return resolved
+    
+    def vote_on_signals(signals):
+        return signals
