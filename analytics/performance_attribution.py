@@ -15,7 +15,7 @@ def generate_alpha_attribution():
         trades = json.load(f)
 
     df = pd.DataFrame(trades)
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    df["timestamp"] = pd.to_datetime(df["timestamp"], format='ISO8601', errors='coerce')
 
     # Group by strategy or signal label
     grouped = df.groupby("strategy").agg(

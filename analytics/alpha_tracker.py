@@ -1,3 +1,4 @@
+```python
 # analytics/alpha_tracker.py
 
 import pandas as pd
@@ -46,4 +47,4 @@ if __name__ == "__main__":
     tracker.track_alpha('strategy2', 0.03)
     tracker.plot_alpha('strategy1')
     tracker.plot_drift('strategy2')
-    
+```

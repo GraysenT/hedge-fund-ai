@@ -1,3 +1,4 @@
+```python
 # analytics/pnl_explainer.py
 
 import pandas as pd
@@ -51,4 +52,4 @@ if __name__ == "__main__":
     print("Strategy PnL: ", explainer.calculate_strategy_pnl())
     print("Execution PnL: ", explainer.calculate_execution_pnl())
     print("Total PnL: ", explainer.calculate_total_pnl())
-    
+```

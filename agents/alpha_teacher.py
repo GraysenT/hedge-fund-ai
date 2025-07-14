@@ -1,6 +1,6 @@
-Below is a Python example using reinforcement learning, specifically Q-learning, to create an agent that learns from past strategy failures and trains new agents to avoid them. This example uses a simple grid environment where the agent must find the shortest path to a goal while avoiding traps.
 
-```python
+#Below is a Python example using reinforcement learning, specifically Q-learning, to create an agent that learns from past strategy failures and trains new agents to avoid them. This example uses a simple grid environment where the agent must find the shortest path to a goal while avoiding traps.
+
 import numpy as np
 import random
 
@@ -89,6 +89,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
 
-This code defines a simple grid environment where an agent learns to navigate to a goal while avoiding traps using Q-learning. The agent updates its strategy based on past failures (negative rewards from traps) and successes (reaching the goal). The Q-table is used to store and update the values based on the agent's experiences, guiding future decisions to maximize rewards and minimize failures.
+#This code defines a simple grid environment where an agent learns to navigate to a goal while avoiding traps using Q-learning. The agent updates its strategy based on past failures (negative rewards from traps) and successes (reaching the goal). The Q-table is used to store and update the values based on the agent's experiences, guiding future decisions to maximize rewards and minimize failures.

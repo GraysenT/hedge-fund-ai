@@ -18,11 +18,3 @@ class MetaCoordinator:
             market: agent.export_state()
             for market, agent in self.agents.items()
         }
-
-    def replicate_best(self):
-        all_agents = list(self.agents.values())
-        scores = [(a.market, max(s.performance_score for s in a.strategies)) for a in all_agents]
-        best = max(scores, key=lambda x: x[1])
-        clone_market = f"{best[0]}_clone_{len(self.agents)}"
-        self.agents[clone_market] = RecursiveAgent(clone_market)
-        print(f"🧬 Cloned {best[0]} into {clone_market}")
