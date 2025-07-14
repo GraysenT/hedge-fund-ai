@@ -10,6 +10,9 @@ class EvolutionEngine:
     def run_generation(self):
         self.strategies = self.genetic.evolve()
 
+    def evolve(self, strategies):
+        return self.genetic.evolve(strategies)
+
     def select_strategy(self):
         return self.rl.select()
 

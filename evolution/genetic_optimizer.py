@@ -1,25 +1,33 @@
 import random
+import copy
 
 class GeneticOptimizer:
     def __init__(self, strategies):
-        self.population = strategies
+        self.population = strategies  # Store original population
 
-    def evolve(self):
-        sorted_population = sorted(self.population, key=lambda s: s.performance_score, reverse=True)
-        survivors = sorted_population[:len(self.population)//2]
+    def evolve(self, strategies=None):
+        population = strategies or self.population
+        if not population:
+            print("⚠️ No strategies to evolve.")
+            return []
 
+        # Sort by performance score
+        sorted_population = sorted(population, key=lambda s: getattr(s, 'performance_score', 0), reverse=True)
+        survivors = sorted_population[:max(1, len(sorted_population)//2)]
+
+        # Generate children via cloning + mutation
         children = []
-        for _ in range(len(self.population) - len(survivors)):
+        for _ in range(len(population) - len(survivors)):
             parent = random.choice(survivors)
             child = self.clone_and_mutate(parent)
             children.append(child)
 
+        # Save and return new generation
         self.population = survivors + children
         return self.population
 
     def clone_and_mutate(self, parent):
-        new_params = parent.parameters.copy()
-        for k in new_params:
-            if isinstance(new_params[k], (int, float)):
-                new_params[k] *= random.uniform(0.95, 1.05)
-        return parent.__class__(name=f"{parent.name}_mutated", parameters=new_params)
+        clone = copy.deepcopy(parent)
+        clone.name = f"{parent.name}_mutated"
+        clone.mutate_parameters()  # Assumes strategy has this method
+        return clone

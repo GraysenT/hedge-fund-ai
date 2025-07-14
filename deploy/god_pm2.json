@@ -1,10 +1,8 @@
 {
   "apps": [{
-    "name": "hedge-fund-godloop",
+    "name": "godloop",
     "script": "simulation/god_loop.py",
     "interpreter": "python3",
-    "autorestart": true,
-    "watch": false,
-    "max_memory_restart": "1G"
+    "autorestart": true
   }]
 }

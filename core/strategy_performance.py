@@ -1,3 +1,4 @@
+from typing import Dict
 from collections import defaultdict
 
 class StrategyPerformance:
@@ -9,8 +10,8 @@ class StrategyPerformance:
         self.stats[strategy_name]["sharpe"] = sharpe
         self.stats[strategy_name]["trades"] += 1
 
-    def get(self, strategy_name: str):
+    def get(self, strategy_name: str) -> Dict:
         return self.stats[strategy_name]
 
-    def all_stats(self):
+    def all_stats(self) -> Dict[str, Dict]:
         return dict(self.stats)
