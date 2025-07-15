@@ -1,3 +1,4 @@
+```python
 # Define the data structure for the report
 report_data = {
     "alpha": 0.05,
@@ -40,3 +41,4 @@ def format_report(report):
 # Generate and print the report
 formatted_report = format_report(report_data)
 print(formatted_report)
+```

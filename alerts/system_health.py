@@ -1,5 +1,6 @@
-#Below is a Python script that simulates monitoring the health status and error signals across multiple modules in a system. This example uses threading to simulate real-time monitoring and logging to handle the outputs. Each module will have a random chance of encountering an error, and the health status will be reported periodically.
+Below is a Python script that simulates monitoring the health status and error signals across multiple modules in a system. This example uses threading to simulate real-time monitoring and logging to handle the outputs. Each module will have a random chance of encountering an error, and the health status will be reported periodically.
 
+```python
 import threading
 import time
 import random
@@ -51,10 +52,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 
 ### Explanation:
-#- **Module Class**: Represents a module with an ID and a health status. It has a method `check_health` that randomly determines if the module is healthy or not.
-#- **monitor_module Function**: Continuously checks the health of a given module at fixed intervals.
-#- **main Function**: Sets up the modules and threads, runs them for a specified duration, and then stops them.
+- **Module Class**: Represents a module with an ID and a health status. It has a method `check_health` that randomly determines if the module is healthy or not.
+- **monitor_module Function**: Continuously checks the health of a given module at fixed intervals.
+- **main Function**: Sets up the modules and threads, runs them for a specified duration, and then stops them.
 
-#This script will log the health status of each module every few seconds and report any errors encountered. Adjust the `NUMBER_OF_MODULES`, `HEALTH_CHECK_INTERVAL`, and `SIMULATION_DURATION` constants as needed for different scenarios.
+This script will log the health status of each module every few seconds and report any errors encountered. Adjust the `NUMBER_OF_MODULES`, `HEALTH_CHECK_INTERVAL`, and `SIMULATION_DURATION` constants as needed for different scenarios.

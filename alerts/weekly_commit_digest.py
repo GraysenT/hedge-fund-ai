@@ -1,5 +1,6 @@
-#Below is a Python script that simulates the functionality of tracking and reporting changes to modules over a week. This script will generate a report based on simulated data, as actual module tracking would require integration with a version control system like Git.
+Below is a Python script that simulates the functionality of tracking and reporting changes to modules over a week. This script will generate a report based on simulated data, as actual module tracking would require integration with a version control system like Git.
 
+```python
 import datetime
 
 # Simulated data for module changes over a week
@@ -31,11 +32,12 @@ print("Weekly Module Changes Report:")
 print("Added Modules:", ", ".join(weekly_report["added"]))
 print("Changed Modules:", ", ".join(weekly_report["changed"]))
 print("Promoted Modules:", ", ".join(weekly_report["promoted"]))
+```
 
-#This script:
-#1. Defines a list of module changes with their type and date.
-#2. Contains a function `get_weekly_report` that filters changes based on a specified date range.
-#3. Calculates the start and end of the current week.
-#4. Generates and prints a report based on the simulated data.
+This script:
+1. Defines a list of module changes with their type and date.
+2. Contains a function `get_weekly_report` that filters changes based on a specified date range.
+3. Calculates the start and end of the current week.
+4. Generates and prints a report based on the simulated data.
 
-#For a real-world application, integration with a version control system or project management tool would be necessary to fetch actual data on module changes.
+For a real-world application, integration with a version control system or project management tool would be necessary to fetch actual data on module changes.

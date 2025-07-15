@@ -1,3 +1,4 @@
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -52,3 +53,4 @@ strategy_weights = [
 ]
 
 plot_strategy_adjustments(strategy_weights)
+```
