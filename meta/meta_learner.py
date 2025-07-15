@@ -21,6 +21,23 @@ def build_meta_map():
     for strat, scores in meta_map.items():
         print(f"{strat}: {dict(scores)}")
 
+def load_logs():
+    logs = []
+    for folder in ["logs/dream_logs", "logs/fork_logs", "logs/trades"]:
+        for file in os.listdir(folder):
+            if file.endswith(".json"):
+                with open(os.path.join(folder, file)) as f:
+                    logs.append(json.load(f))
+    return logs
+
+def analyze_performance():
+    logs = load_logs()
+    insights = []
+    for entry in logs:
+        if isinstance(entry, dict) and "sharpe" in entry and entry["sharpe"] > 1.5:
+            insights.append(entry)
+    return insights
+
 if __name__ == "__main__":
     build_meta_map()
     

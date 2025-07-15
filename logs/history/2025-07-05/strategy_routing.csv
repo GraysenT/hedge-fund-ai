@@ -1,5 +1,0 @@
-Strategy,Avg Return,Accuracy,Score,Weight
-Fusion,1.17,1.0,0.85,0.25
-LSTM,1.17,1.0,0.85,0.25
-Macro,1.17,1.0,0.85,0.25
-Sentiment,1.17,1.0,0.85,0.25

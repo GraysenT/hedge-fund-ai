@@ -2,6 +2,22 @@ import os
 import json
 from meta.oversight_engine import load_evolution_logs, analyze_strategy_health
 
+LINEAGE_FILE = "logs/lineage_map.json"
+os.makedirs("logs", exist_ok=True)
+
+def log_fork(parent_id, child_id, timestamp):
+    lineage = {}
+    if os.path.exists(LINEAGE_FILE):
+        with open(LINEAGE_FILE) as f:
+            lineage = json.load(f)
+    lineage[child_id] = {"parent": parent_id, "timestamp": timestamp}
+    with open(LINEAGE_FILE, "w") as f:
+        json.dump(lineage, f, indent=2)
+
+def get_lineage():
+    with open(LINEAGE_FILE) as f:
+        return json.load(f)
+
 GEN_PATH = "strategy_memory/generated_strategies.json"
 LINEAGE_PATH = "strategy_memory/strategy_lineage.json"
 

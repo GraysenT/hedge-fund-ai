@@ -1,0 +1,5 @@
+#!/bin/bash
+export PYTHONPATH=$(pwd)
+python3 simulation/god_loop.py
+chmod +x run_godloop.sh
+

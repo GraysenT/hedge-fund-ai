@@ -1,6 +1,0 @@
-{
-  "macro_sentiment": ["macro", "trend"],
-  "slow_react_scalper": ["latency", "scalping"],
-  "momentum_breakout_booster": ["momentum", "breakout"],
-  "volatility_engine": ["volatility", "mean_reversion"]
-}

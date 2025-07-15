@@ -1,0 +1,30 @@
+services:
+  orchestrator:
+    build: ./orchestrator
+    ports:
+      - "5000:5000"
+    depends_on:
+      - agent_strategy
+      - agent_macro
+      - agent_sentiment
+      - agent_risk
+
+  agent_strategy:
+    build: ./services/agent_strategy
+    ports:
+      - "5100:5100"
+
+  agent_macro:
+    build: ./services/agent_macro
+    ports:
+      - "5101:5101"
+
+  agent_sentiment:
+    build: ./services/agent_sentiment
+    ports:
+      - "5102:5102"
+
+  agent_risk:
+    build: ./services/agent_risk
+    ports:
+      - "5103:5103"

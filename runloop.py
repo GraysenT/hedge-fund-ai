@@ -17,6 +17,8 @@ from intelligence.multi_agent_orchestrator import *
 import time
 import random
 import os
+for agent in agents:
+    agent.self_upgrade()
 
 os.environ['ALPACA_API_KEY'] = "your_key_here"
 os.environ['ALPACA_SECRET_KEY'] = "your_secret_here"

@@ -1,6 +1,26 @@
-memory/
-logs/
-reports/
-.env
+# Python artifacts
 __pycache__/
-*.pyc
+*.py[cod]
+*.pkl
+*.h5
+*.db
+*.log
+
+# Virtual environments
+venv/
+.env
+
+# Logs & cache
+logs/
+evolutions/
+signals/
+*.pem
+*.zip
+
+# Streamlit
+.streamlit/
+
+# IDE / system
+.DS_Store
+.idea/
+.vscode/

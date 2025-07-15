@@ -1,5 +1,0 @@
-Strategy,Avg Return,Volatility,Success Rate,Status
-Fusion,1.17,0.0,1.0,Healthy
-LSTM,1.17,0.0,1.0,Healthy
-Macro,1.17,,1.0,Healthy
-Sentiment,1.17,0.0,1.0,Healthy

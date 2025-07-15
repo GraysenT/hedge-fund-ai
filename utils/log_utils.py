@@ -13,3 +13,6 @@ def rotate_log(filepath, max_size_kb=200, backup_count=5):
         with open(filepath, "w") as f:
             f.write("[]")
         print(f"[LOG ROTATION] Rotated {filepath} to {rotated_file}")
+
+def log_event(event):
+    print(f'Event: {event}')

@@ -1,0 +1,29 @@
+name: Hedge Fund AI CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install Dependencies
+      run: |
+        pip install -r deployment/requirements.txt
+
+    - name: Run Simulation Tests
+      run: python tests/test_strategy_loop.py
+
+    - name: Run Historical Strategy Test
+      run: python tests/test_historical_signal_generation.py
