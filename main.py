@@ -1,78 +1,51 @@
+import threading
 import time
-import logging
-from strategies.trend_following import TrendFollowing
-from strategies.mean_reversion import MeanReversion
-from strategies.momentum_based import MomentumBased
-from strategies.breakout import Breakout
-from strategies.macd import MACD
-from strategies.bollinger_bands import BollingerBands
-from backtesting.backtester import Backtester
-from data_fetching.real_time_data import RealTimeData
-from risk_management.risk_manager import RiskManager
-from utils.performance_metrics import calculate_sharpe_ratio
-from utils.strategy_optimizer import optimize_strategy
+import os
+import subprocess
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-
-# Initialize Alpaca (or other API) for real-time data and execution
-api_key = 'your_alpaca_api_key'
-secret_key = 'your_alpaca_secret_key'
-real_time_data = RealTimeData(api_key, secret_key)
-risk_manager = RiskManager()
-
-# Initialize strategies
-strategies = [
-    TrendFollowing(),
-    MeanReversion(),
-    MomentumBased(),
-    Breakout(),
-    MACD(),
-    BollingerBands()
-]
-
-# Run the backtester
-backtester = Backtester(strategies)
-backtester.run_backtest()
-
-# Run real-time trading loop
-def run_trading_loop():
-    while True:
+# === Port Cleanup ===
+def free_ports(ports):
+    for port in ports:
         try:
-            # Fetch live data for multiple assets (e.g., AAPL, BTC/USD)
-            live_data = real_time_data.get_live_data(["AAPL", "BTCUSD"])
+            pids = subprocess.check_output(["lsof", "-ti", f":{port}"]).decode().strip().split("\n")
+            for pid in pids:
+                if pid:
+                    print(f"🔪 Killing PID {pid} on port {port}")
+                    os.system(f"kill -9 {pid}")
+        except subprocess.CalledProcessError:
+            pass  # Port not in use
 
-            # Choose strategy with the best signal
-            signals = {}
-            for strategy in strategies:
-                signal = strategy.get_signal(live_data)
-                signals[strategy.name] = signal
-            
-            # Select the best strategy based on the signals
-            best_strategy = max(signals, key=signals.get)
-            logging.info(f"Best Strategy: {best_strategy}")
+    # 🔪 Extra: kill any zombie streamlit processes just in case
+    os.system("pkill -f streamlit")
 
-            # Risk management: Calculate position size and execute trade
-            position_size = risk_manager.calculate_position_size(live_data)
-            risk_manager.place_trade(best_strategy, position_size)
+# === Thread Targets ===
+from orchestrator.api_runner import start_api
+from dashboard.main import start_dashboard
+from evolution.loop import run_evolution_loop
+from forking.agent_forker import agent_fork_loop
+from execution.trading_loop import run_live_trading
 
-            # Log performance
-            sharpe_ratio = calculate_sharpe_ratio(live_data)
-            logging.info(f"Sharpe Ratio: {sharpe_ratio}")
+def log_system_status():
+    while True:
+        print("✅ System heartbeat - all threads active")
+        time.sleep(30)
 
-            # Wait for the next cycle
-            time.sleep(60)
+if __name__ == "__main__":
+    # 🚫 Kill previous runs on required ports
+    free_ports([8000, 8500])
 
-        except Exception as e:
-            logging.error(f"Error in trading loop: {e}")
-            time.sleep(60)
+    threads = []
 
-# Optimize strategies using hyperparameter optimization
-def optimize_trading_strategies():
-    for strategy in strategies:
-        optimized_params = optimize_strategy(strategy)
-        strategy.set_params(optimized_params)
+    threads.append(threading.Thread(target=start_api, name="FastAPI"))
+    threads.append(threading.Thread(target=start_dashboard, name="Dashboard"))
+    threads.append(threading.Thread(target=run_evolution_loop, name="Evolution"))
+    threads.append(threading.Thread(target=agent_fork_loop, name="Forking"))
+    threads.append(threading.Thread(target=run_live_trading, name="Trading"))
+    threads.append(threading.Thread(target=log_system_status, name="Heartbeat"))
 
-# Run strategy optimization and trading loop
-optimize_trading_strategies()
-run_trading_loop()
+    for t in threads:
+        t.daemon = True
+        t.start()
+
+    while True:
+        time.sleep(1)
