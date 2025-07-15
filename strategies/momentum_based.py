@@ -31,3 +31,31 @@ class MomentumBased:
     def set_params(self, params):
         """Set optimized parameters for the strategy."""
         self.roc_period = params.get('roc_period', self.roc_period)
+
+class MomentumBased:
+    def __init__(self, name=None, config=None):
+        self.name = name or "momentum_based"
+        self.config = config or {}
+
+    def generate_signal(self, market_data):
+        if isinstance(market_data, pd.DataFrame):
+            if "momentum" not in market_data.columns:
+                market_data["momentum"] = 0  # default fallback
+
+            return market_data.apply(
+                lambda row: "buy" if row["momentum"] > 0 else "sell",
+                axis=1
+            )
+
+        elif isinstance(market_data, dict):
+            return "buy" if market_data.get("momentum", 0) > 0 else "sell"
+
+        else:
+            raise ValueError("Invalid input for momentum strategy.")
+        
+    def train(self, data):
+        # Optional: strategy-specific training logic
+        pass
+
+    def set_params(self, params):
+        self.config.update(params)

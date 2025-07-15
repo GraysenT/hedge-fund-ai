@@ -1,26 +1,30 @@
+import pandas as pd
+import numpy as np
 from core.strategy_base import StrategyBase
 
-class TrendFollowingStrategy(StrategyBase):
-    """
-    A simple trend-following strategy that compares price vs. moving average.
-    If price > MA → Buy. If price < MA → Sell. Otherwise → Hold.
-    """
+class TrendFollowing:
+    def __init__(self, name=None, config=None):
+        self.name = name or "trend_following"
+        self.config = config or {}
 
     def generate_signal(self, market_data):
-        try:
-            price = float(market_data.get("price", 0))
-            ma = float(market_data.get("ma", 0))
+        if isinstance(market_data, pd.DataFrame):
+            # Generate one prediction per row
+            return market_data.apply(
+                lambda row: "buy" if row["price"] > row["moving_average"] else "sell",
+                axis=1
+            )
+        elif isinstance(market_data, dict):
+            return "buy" if market_data["price"] > market_data["moving_average"] else "sell"
+        else:
+            raise ValueError("Invalid input type for market_data.")
+    
+    def train(self, data):
+        # Optional: strategy-specific training logic
+        pass
 
-            if ma == 0:
-                return "hold"
-
-            if price > ma:
-                return "buy"
-            elif price < ma:
-                return "sell"
-            else:
-                return "hold"
-
-        except Exception as e:
-            print(f"[TrendFollowingStrategy] Error generating signal: {e}")
-            return "hold"
+    def set_params(self, params):
+        self.config.update(params)
+    
+    def get_signal(self, market_data):
+        return self.generate_signal(market_data)
