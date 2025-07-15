@@ -1,0 +1,25 @@
+services:
+  orchestrator:
+    build: ./orchestrator
+    ports:
+      - "5050:5000"
+    networks:
+      - default
+
+  agent_strategy:
+    build: ./services/agent_strategy
+    ports:
+      - "5100:5100"
+    networks:
+      - default
+
+  agent_macro:
+    build: ./services/agent_macro
+    ports:
+      - "5101:5101"
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

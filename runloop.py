@@ -13,6 +13,49 @@ from execution.strategy_router import route_all_strategies
 from execution.execution_router import route_order
 from utils.paths import TRADE_LOG_FILE, SIGNAL_LOG
 from utils.log_utils import rotate_log
+from intelligence.multi_agent_orchestrator import *
+import time
+import random
+import os
+
+os.environ['ALPACA_API_KEY'] = "your_key_here"
+os.environ['ALPACA_SECRET_KEY'] = "your_secret_here"
+os.environ['OPENAI_API_KEY'] = "your_openai_key_here"
+
+def get_live_market_state():
+    return {
+        'momentum': random.uniform(-1, 1),
+        'volatility': random.uniform(10, 40),
+        'gdp_growth': random.uniform(1, 4),
+        'social_sentiment': random.uniform(0, 1),
+        'news_score': random.uniform(0, 1),
+        'rsi': random.randint(10, 90),
+        'correlation': random.uniform(-1, 1),
+        'liquidity': random.randint(0, 100)
+    }
+
+if __name__ == "__main__":
+    agents = [
+        StrategyAgent("StratA"),
+        RiskAgent("RiskControl"),
+        MacroAgent("MacroAgent"),
+        SentimentAgent("SentimentAgent"),
+        NewsAgent("NewsAgent"),
+        TechnicalAgent("TechnicalAgent"),
+        CorrelationAgent("CorrelationAgent"),
+        LiquidityAgent("LiquidityAgent"),
+        GPTReflectiveAgent("MetaAgentGPT")
+    ]
+    orchestrator = MultiAgentOrchestrator(agents)
+
+    print("\n=== GLOBAL REAL-TIME TRADING CONSCIOUSNESS ===")
+    for _ in range(20):
+        state = get_live_market_state()
+        result = orchestrator.run(state)
+        print(result)
+        time.sleep(1)
+
+
 rotate_log(TRADE_LOG_FILE)
 rotate_log(SIGNAL_LOG)
 

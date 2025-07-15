@@ -1,0 +1,20 @@
+APP="main:app"
+HOST="0.0.0.0"
+PORTS=(8000 8080 8500)
+RELOAD="--reload"
+
+echo "🔍 Checking for occupied ports..."
+for PORT in "${PORTS[@]}"; do
+    PID=$(lsof -ti tcp:$PORT)
+    if [ -n "$PID" ]; then
+        echo "⚠️  Port $PORT is in use by PID $PID. Killing..."
+        kill -9 $PID
+    fi
+done
+
+echo "✅ Ports cleared. Trying to start server..."
+
+for PORT in "${PORTS[@]}"; do
+    echo "🚀 Trying port $PORT..."
+    python -m uvicorn $APP --host $HOST --port $PORT $RELOAD && break
+done
